@@ -9,9 +9,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class User {
     private int userIdx;
+    private String id;
+    private String pw;
     private String name;
-    private String nickName;
-    private String phone;
     private String email;
-    private String password;
+    private boolean isLawyer;
 }
