@@ -21,13 +21,16 @@ public class IncidentNoteDao {
 
 
     public GetIncidentNoteRes selectIncidentNote(int userIdx){
-        String checkUserExistQuery = "select exists(select userIdx from User where userIdx = ?)";
+        String checkUserExistQuery = "select Evidence.evidenceIdx, evidenceName, evidenceImgUrl\n" +
+                "from Evidence,IncidentNote\n" +
+                "where Evidence.evidenceIdx = IncidentNote.evidenceIdx and IncidentNote.userIdx = ?\n" +
+                "order by Evidence.evidenceIdx;";
         int checkUserExistParams = userIdx;
         return this.jdbcTemplate.queryForObject(checkUserExistQuery,
                 (rs,rowNum) -> new GetIncidentNoteRes(
                         rs.getInt("evidenceIdx"),
-                        rs.getString("evidenceImgUrl"),
-                        rs.getString("evidenceName")
+                        rs.getString("evidenceName"),
+                        rs.getString("evidenceImgUrl")
                 ),
                 checkUserExistParams);
     }

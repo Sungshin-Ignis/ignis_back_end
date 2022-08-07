@@ -2,8 +2,6 @@ package com.example.demo.src.incidentNote;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.incidentNote.IncidentNoteProvider;
-import com.example.demo.src.incidentNote.IncidentNoteService;
 import com.example.demo.src.incidentNote.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -46,8 +44,8 @@ public class IncidentNoteController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/IncidentNote/:userIdx
-    public BaseResponse<GetIncidentNoteRes> getUsers(@PathVariable("userIdx")int userIdx) {
+    @GetMapping("") // (GET) 127.0.0.1:9000/IncidentNote?userIdx=
+    public BaseResponse<GetIncidentNoteRes> getUsers(@RequestParam int userIdx) {
         try{
             GetIncidentNoteRes getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
