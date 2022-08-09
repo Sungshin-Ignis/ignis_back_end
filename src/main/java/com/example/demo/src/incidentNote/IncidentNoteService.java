@@ -2,6 +2,8 @@ package com.example.demo.src.incidentNote;
 
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.incidentNote.model.PostIncidentNoteReq;
+import com.example.demo.src.incidentNote.model.PostIncidentNoteRes;
 import com.example.demo.src.user.UserDao;
 import com.example.demo.src.user.UserProvider;
 import com.example.demo.src.user.model.PatchUserReq;
@@ -34,5 +36,14 @@ public class IncidentNoteService {
 
     }
 
+    public PostIncidentNoteRes createIncidentNote(int userIdx, PostIncidentNoteReq postIncidentNoteReq) throws BaseException {
+        try {
+            int incidentNoteIdx = incidentNoteDao.insertIncidentNote(userIdx, postIncidentNoteReq.getEvidenceIdx());
 
+            return new PostIncidentNoteRes(incidentNoteIdx);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

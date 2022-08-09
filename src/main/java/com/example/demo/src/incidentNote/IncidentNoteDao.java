@@ -46,4 +46,13 @@ public class IncidentNoteDao {
 
     }
 
+
+    public int insertIncidentNote(int userIdx, int evidenceIdx) {
+        String insertPostQuery = "insert into IncidentNote(userIdx, evidenceIdx) values (?,?)";
+        Object []insertPostParams = new Object[] {userIdx, evidenceIdx};
+        this.jdbcTemplate.update(insertPostQuery,
+                insertPostParams);
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
 }

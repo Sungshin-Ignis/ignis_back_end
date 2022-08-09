@@ -14,7 +14,7 @@ import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAI
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users" )
 public class UserController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
