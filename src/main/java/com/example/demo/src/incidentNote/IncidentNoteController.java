@@ -2,15 +2,17 @@ package com.example.demo.src.incidentNote;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.incidentNote.model.*;
+import com.example.demo.src.user.model.PostUserReq;
+import com.example.demo.src.user.model.PostUserRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_EMPTY_EMAIL;
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
+import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
@@ -54,4 +56,23 @@ public class IncidentNoteController {
         }
     }
 
+    /**
+     * 사건 노트에 증거 저장 API
+     * [POST] /incidentNote
+     * @return BaseResponse<PostIncidentNoteRes>
+     */
+    // Body
+    @ResponseBody
+    @PostMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence?userIdx=
+    public BaseResponse<PostIncidentNoteRes> createIncidentNote(@RequestBody PostIncidentNoteReq postIncidentNoteReq) {
+        if (postIncidentNoteReq.getEvidenceIdx() > 12 && postIncidentNoteReq.getEvidenceIdx() < 0) {
+            return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
+        }
+        try{
+            PostIncidentNoteRes postIncidentNoteRes = incidentNoteService.createIncidentNote(postIncidentNoteReq.getUserIdx(), postIncidentNoteReq);
+            return new BaseResponse<>(postIncidentNoteRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
