@@ -7,7 +7,7 @@ spring:
 
   datasource:
     platform: mysql
-    url: jdbc:mysql://thejudgement-db-rds.cexmlygcy72v.ap-northeast-2.rds.amazonaws.com:3306/theJudgement_db
+    url: jdbc:mysql://thejugdement-db-rds.cexmlygcy72v.ap-northeast-2.rds.amazonaws.com:3306/theJudgement_db
     username: ignisAdmin
     password: dlrmsltm21
     driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전
