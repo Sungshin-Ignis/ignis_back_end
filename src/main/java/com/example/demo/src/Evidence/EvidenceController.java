@@ -40,93 +40,18 @@ public class EvidenceController {
 
 
     /**
-     * 회원 조회 API
-     * [GET] /users
-     * 이메일 검색 조회 API
-     * [GET] /users? Email=
+     * 힌트 여부 조회 API
+     * [GET] /evidence/hasHint?evidenceIdx=
      * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/users
-    public BaseResponse<GetEvidenceRes> getEvidence(@RequestParam(required = true) String idx) {
+    @GetMapping("") // (GET) 127.0.0.1:9000/evidence/hasHint?evidenceIdx=
+    public BaseResponse<GetEvidenceRes> getEvidence(@RequestParam int evidenceIdx) {
         try{
-            // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
-            if(){
-                return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-            }
-            // 이메일 정규표현
-            if(!isRegexEmail(Email)){
-                return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-            }
-            GetUserRes getUsersRes = evidenceProvider.getUsersByEmail(Email);
-            return new BaseResponse<>(getEvidencesRes);
+            GetEvidenceRes getEvidenceRes = evidenceProvider.getHasHintByEvidenceIdx(evidenceIdx);
+            return new BaseResponse<>(getEvidenceRes);
         } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
-    @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
-        try{
-
-            GetUserRes getUsersRes = evidenceProvider.getUsersByIdx(userIdx);
-            return new BaseResponse<>(getUsersRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
-    /**
-     * 회원가입 API
-     * [POST] /users
-     * @return BaseResponse<PostUserRes>
-     */
-    // Body
-    @ResponseBody
-    @PostMapping("") // (POST) 127.0.0.1:9000/users
-    public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
-        // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
-        if(postUserReq.getEmail() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-        }
-        // 이메일 정규표현
-        if(!isRegexEmail(postUserReq.getEmail())){
-            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-        }
-        try{
-            PostUserRes postUserRes = evidenceService.createUser(postUserReq);
-            return new BaseResponse<>(postUserRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
-    /**
-     * 유저정보변경 API
-     * [PATCH] /users/:userIdx
-     * @return BaseResponse<String>
-     */
-    @ResponseBody
-    @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
-        try {
-            /* TODO: jwt는 다음주차에서 배울 내용입니다!
-            jwt에서 idx 추출.
-            int userIdxByJwt = jwtService.getUserIdx();
-            userIdx와 접근한 유저가 같은지 확인
-            if(userIdx != userIdxByJwt){
-                return new BaseResponse<>(INVALID_USER_JWT);
-            }
-            */
-
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
-            evidenceService.modifyUserName(patchUserReq);
-
-            String result = "";
-        return new BaseResponse<>(result);
-        } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }

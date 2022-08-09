@@ -2,7 +2,7 @@ package com.example.demo.src.Evidence;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.user.UserDao;
+import com.example.demo.src.Evidence.model.GetEvidenceRes;
 import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -16,49 +16,26 @@ import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 @Service
 public class EvidenceProvider {
 
-    private final UserDao userDao;
+    private final EvidenceDao evidenceDao;
     private final JwtService jwtService;
 
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public EvidenceProvider(UserDao userDao, JwtService jwtService) {
-        this.userDao = userDao;
+    public EvidenceProvider(EvidenceDao evidencDao, JwtService jwtService) {
+        this.evidenceDao = evidencDao;
         this.jwtService = jwtService;
     }
 
 
-    public GetUserRes getUsersByEmail(String email) throws BaseException{
+    public GetEvidenceRes getHasHintByEvidenceIdx(int evidenceIdx) throws BaseException{
         try{
-            GetUserRes getUsersRes = userDao.getUsersByEmail(email);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-                    }
-
-
-    public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByIdx(userIdx);
-            return getUsersRes;
+            GetEvidenceRes getEvidenceRes = evidenceDao.getHasHintByEvidenceIdx(evidenceIdx);
+            return getEvidenceRes;
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
-
-    public int checkEmail(String email) throws BaseException{
-        try{
-            return userDao.checkEmail(email);
-        } catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
-
-
 }

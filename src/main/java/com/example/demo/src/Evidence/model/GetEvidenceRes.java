@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetEvidenceRes {
-    private int idx;
+    private int evidenceIdx;
     private boolean hasHint;
 }
