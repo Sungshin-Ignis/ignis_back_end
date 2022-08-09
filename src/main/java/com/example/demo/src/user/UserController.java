@@ -107,7 +107,7 @@ public class UserController {
      */
     @ResponseBody
     @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
+    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx){
         try {
             /* TODO: jwt는 다음주차에서 배울 내용입니다!
             jwt에서 idx 추출.
@@ -118,7 +118,7 @@ public class UserController {
             }
             */
 
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
+            PatchUserReq patchUserReq = new PatchUserReq(userIdx,"");
             userService.modifyUserName(patchUserReq);
 
             String result = "";
