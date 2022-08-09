@@ -120,7 +120,7 @@ public class LawController {
             }
             */
 
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
+            PatchUserReq patchUserReq = new PatchUserReq(userIdx,"");
             userService.modifyUserName(patchUserReq);
 
             String result = "";
