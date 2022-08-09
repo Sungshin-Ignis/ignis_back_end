@@ -52,4 +52,7 @@ public class IncidentNoteProvider {
     }
 
 
+    public int checkEmail(String email) {
+        return 0;
+    }
 }

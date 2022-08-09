@@ -21,15 +21,15 @@ import static com.example.demo.config.BaseResponseStatus.*;
 public class IncidentNoteService {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final UserDao userDao;
-    private final UserProvider userProvider;
+    private final IncidentNoteDao incidentNoteDao;
+    private final IncidentNoteProvider incidentNoteProvider;
     private final JwtService jwtService;
 
 
     @Autowired
-    public IncidentNoteService(UserDao userDao, UserProvider userProvider, JwtService jwtService) {
-        this.userDao = userDao;
-        this.userProvider = userProvider;
+    public IncidentNoteService(IncidentNoteDao incidentNoteDao, IncidentNoteProvider incidentNoteProvider, JwtService jwtService) {
+        this.incidentNoteDao = incidentNoteDao;
+        this.incidentNoteProvider = incidentNoteProvider;
         this.jwtService = jwtService;
 
     }
@@ -37,7 +37,7 @@ public class IncidentNoteService {
 
     public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
         // 이메일 중복 확인
-        if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
+        if(incidentNoteProvider.checkEmail(postUserReq.getEmail()) ==1){
             throw new BaseException(POST_USERS_EXISTS_EMAIL);
         }
 
@@ -49,7 +49,7 @@ public class IncidentNoteService {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
         try{
-            int userIdx = userDao.createUser(postUserReq);
+            int userIdx = incidentNoteDao.createUser(postUserReq);
             //jwt 발급.
             String jwt = jwtService.createJwt(userIdx);
             return new PostUserRes(jwt,userIdx);
@@ -60,7 +60,7 @@ public class IncidentNoteService {
 
     public void modifyUserName(PatchUserReq patchUserReq) throws BaseException {
         try{
-            int result = userDao.modifyUserName(patchUserReq);
+            int result = incidentNoteDao.modifyUserName(patchUserReq);
             if(result == 0){
                 throw new BaseException(MODIFY_FAIL_USERNAME);
             }
