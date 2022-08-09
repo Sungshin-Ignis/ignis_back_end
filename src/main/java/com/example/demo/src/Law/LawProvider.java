@@ -2,6 +2,8 @@ package com.example.demo.src.Law;
 
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.Law.model.GetLawRes;
+import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
 import com.example.demo.src.user.UserDao;
 import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.utils.JwtService;
@@ -29,4 +31,12 @@ public class LawProvider {
     }
 
 
+    public GetLawRes getLaws() throws BaseException {
+        try{
+            GetLawRes getLawRes = lawDao.selectLaws();
+            return getLawRes;
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

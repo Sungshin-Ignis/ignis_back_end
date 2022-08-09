@@ -2,6 +2,8 @@ package com.example.demo.src.Law;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.Law.model.GetLawRes;
+import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
 import com.example.demo.src.user.UserProvider;
 import com.example.demo.src.user.UserService;
 import com.example.demo.src.user.model.*;
@@ -37,5 +39,21 @@ public class LawController {
     }
 
 
-
+    /**
+     * 사건노트 조회 API
+     * [GET] /IncidentNote
+     *
+     * @return BaseResponse<GetUserRes>
+     */
+    //Query String
+    @ResponseBody
+    @GetMapping("") // (GET) 127.0.0.1:9000/law
+    public BaseResponse<GetLawRes> getLaws() {
+        try{
+            GetLawRes getLawRes = lawProvider.getLaws();
+            return new BaseResponse<>(getLawRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
