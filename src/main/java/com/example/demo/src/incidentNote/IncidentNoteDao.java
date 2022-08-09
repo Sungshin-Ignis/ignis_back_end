@@ -46,11 +46,4 @@ public class IncidentNoteDao {
 
     }
 
-    public int createUser(PostUserReq postUserReq) {
-        return 0;
-    }
-
-    public int modifyUserName(PatchUserReq patchUserReq) {
-        return 0;
-    }
 }

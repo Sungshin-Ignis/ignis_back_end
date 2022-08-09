@@ -24,11 +24,22 @@ public class EvidenceDao {
 
     public GetEvidenceRes getHasHintByEvidenceIdx(int evidenceIdx){
         String getHasHintQuery = "select hasHint from Evidence where evidenceIdx = ?";
+        int checkEvidenceExistParams = evidenceIdx;
         return this.jdbcTemplate.queryForObject(getHasHintQuery,
                 (rs,rowNum) -> new GetEvidenceRes(
                         rs.getInt("evidenceIdx"),
                         rs.getBoolean("hasHint")
-                ));
+                ),
+                checkEvidenceExistParams);
+    }
+
+    public int checkEvidenceExist(int evidenceIdx){
+        String checkUserExistQuery = "select exists(select evidenceIdx from Evidence where evidenceIdx = ?)";
+        int checkEvidenceExistParams = evidenceIdx;
+        return this.jdbcTemplate.queryForObject(checkUserExistQuery,
+                int.class,
+                checkEvidenceExistParams);
+
     }
 
 }

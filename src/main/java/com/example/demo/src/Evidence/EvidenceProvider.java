@@ -23,8 +23,8 @@ public class EvidenceProvider {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public EvidenceProvider(EvidenceDao evidencDao, JwtService jwtService) {
-        this.evidenceDao = evidencDao;
+    public EvidenceProvider(EvidenceDao evidenceDao, JwtService jwtService) {
+        this.evidenceDao = evidenceDao;
         this.jwtService = jwtService;
     }
 
@@ -35,6 +35,14 @@ public class EvidenceProvider {
             return getEvidenceRes;
         }
         catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    private int checkUserExist(int evidenceIdx) throws BaseException {
+        try{
+            return evidenceDao.checkEvidenceExist(evidenceIdx);
+        } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
