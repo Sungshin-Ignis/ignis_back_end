@@ -3,9 +3,6 @@ package com.example.demo.src.Evidence;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.Evidence.model.GetEvidenceRes;
-import com.example.demo.src.user.UserProvider;
-import com.example.demo.src.user.UserService;
-import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +43,7 @@ public class EvidenceController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/evidence/hasHint?evidenceIdx=
+    @GetMapping("/hasHint") // (GET) 127.0.0.1:9000/evidence/hasHint?evidenceIdx=
     public BaseResponse<GetEvidenceRes> getEvidence(@RequestParam int evidenceIdx) {
         try{
             GetEvidenceRes getEvidenceRes = evidenceProvider.getHasHintByEvidenceIdx(evidenceIdx);

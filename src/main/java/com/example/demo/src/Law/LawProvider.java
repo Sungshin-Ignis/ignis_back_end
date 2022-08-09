@@ -16,49 +16,17 @@ import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 @Service
 public class LawProvider {
 
-    private final UserDao userDao;
+    private final LawDao lawDao;
     private final JwtService jwtService;
 
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public LawProvider(UserDao userDao, JwtService jwtService) {
-        this.userDao = userDao;
+    public LawProvider(LawDao lawDao, JwtService jwtService) {
+        this.lawDao = lawDao;
         this.jwtService = jwtService;
     }
-
-
-    public GetUserRes getUsersByEmail(String email) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByEmail(email);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-                    }
-
-
-    public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByIdx(userIdx);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
-
-    public int checkEmail(String email) throws BaseException{
-        try{
-            return userDao.checkEmail(email);
-        } catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
 
 
 }

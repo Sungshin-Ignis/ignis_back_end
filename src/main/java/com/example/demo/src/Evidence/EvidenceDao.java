@@ -23,7 +23,7 @@ public class EvidenceDao {
     }
 
     public GetEvidenceRes getHasHintByEvidenceIdx(int evidenceIdx){
-        String getHasHintQuery = "select evidenceIdx, hasHint from User";
+        String getHasHintQuery = "select hasHint from Evidence where evidenceIdx = ?";
         return this.jdbcTemplate.queryForObject(getHasHintQuery,
                 (rs,rowNum) -> new GetEvidenceRes(
                         rs.getInt("evidenceIdx"),

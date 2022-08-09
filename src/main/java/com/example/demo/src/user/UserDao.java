@@ -26,21 +26,17 @@ public class UserDao {
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("name"),
-                        rs.getString("nickName"),
-                        rs.getString("email")
+                        rs.getBoolean("isLawyer")
                 ));
     }
 
     public GetUserRes getUsersByEmail(String email){
-        String getUsersByEmailQuery = "select userIdx,name,nickName,email from User where email=?";
+        String getUsersByEmailQuery = "select userIdx,name,nickName from User where email=?";
         String getUsersByEmailParams = email;
         return this.jdbcTemplate.queryForObject(getUsersByEmailQuery,
                 (rs, rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("name"),
-                        rs.getString("nickName"),
-                        rs.getString("email")),
+                        rs.getBoolean("isLawyer")),
                 getUsersByEmailParams);
     }
 
@@ -51,9 +47,7 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(getUsersByIdxQuery,
                 (rs, rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("name"),
-                        rs.getString("nickName"),
-                        rs.getString("email")),
+                        rs.getBoolean("isLawyer")),
                 getUsersByIdxParams);
     }
 

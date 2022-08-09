@@ -16,47 +16,16 @@ import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 @Service
 public class HintProvider {
 
-    private final UserDao userDao;
+    private final HintDao hintDao;
     private final JwtService jwtService;
 
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public HintProvider(UserDao userDao, JwtService jwtService) {
-        this.userDao = userDao;
+    public HintProvider(HintDao hintDao, JwtService jwtService) {
+        this.hintDao = hintDao;
         this.jwtService = jwtService;
-    }
-
-
-    public GetUserRes getUsersByEmail(String email) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByEmail(email);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-                    }
-
-
-    public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByIdx(userIdx);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
-
-    public int checkEmail(String email) throws BaseException{
-        try{
-            return userDao.checkEmail(email);
-        } catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
-        }
     }
 
 
