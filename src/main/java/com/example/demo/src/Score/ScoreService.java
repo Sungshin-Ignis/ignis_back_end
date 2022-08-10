@@ -2,13 +2,9 @@ package com.example.demo.src.Score;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.user.UserDao;
-import com.example.demo.src.user.UserProvider;
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
-import com.example.demo.src.user.model.PostUserRes;
+import com.example.demo.src.Score.model.PatchFavorableEvidenceSCRes;
+import com.example.demo.src.Score.model.PatchScoreReq;
 import com.example.demo.utils.JwtService;
-import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +30,13 @@ public class ScoreService {
 
     }
 
+    public void addFavorableEvidenceSC(int userIdx, int favorableEvidenceSC1, PatchScoreReq patchScoreReq) throws BaseException{
+        try {
+            int addFavorableEvidenceSC1 = scoreDao.updateFavorableEvidenceSC(favorableEvidenceSC1, patchScoreReq.getFavorableEvidenceSC());
 
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

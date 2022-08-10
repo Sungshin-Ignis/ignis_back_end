@@ -3,19 +3,13 @@ package com.example.demo.src.Score;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.Score.model.GetScoreRes;
-import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
-import com.example.demo.src.user.UserProvider;
-import com.example.demo.src.user.UserService;
-import com.example.demo.src.user.model.*;
+import com.example.demo.src.Score.model.PatchFavorableEvidenceSCRes;
+import com.example.demo.src.Score.model.PatchScoreReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_EMPTY_EMAIL;
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
-import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
 @RequestMapping("/score")
@@ -50,6 +44,24 @@ public class ScoreController {
         try{
             GetScoreRes getScoreRes = scoreProvider.getScoreByTotal(userIdx);
             return new BaseResponse<>(getScoreRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    /**
+     *  favorableEvidenceSC 증가 api API
+     * [PATCH] /score/favorableEvidenceSC
+     *
+     * @return BaseResponse<GetUserRes>
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/{favorableEvidenceSC1}") // (PATCH) 127.0.0.1:9000/score/favorableEvidenceSC
+    public BaseResponse<String> addFavorableEvidenceSC(@PathVariable ("favorableEvidenceSC1") int favorableEvidenceSC1, @RequestBody PatchScoreReq patchScoreReq) {
+        try{
+            scoreService.addFavorableEvidenceSC(patchScoreReq.getUserIdx(), favorableEvidenceSC1, patchScoreReq);
+            String result="favorableEvidenceSC 점수 증가";
+            return new BaseResponse<>(result);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
