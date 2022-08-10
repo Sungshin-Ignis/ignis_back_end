@@ -2,6 +2,8 @@ package com.example.demo.src.Hint;
 
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.Hint.model.GetHintRes;
+import com.example.demo.src.Score.model.GetScoreRes;
 import com.example.demo.src.user.UserDao;
 import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.utils.JwtService;
@@ -28,6 +30,14 @@ public class HintProvider {
         this.jwtService = jwtService;
     }
 
-
+    public GetHintRes getHintByOptions(int evidenceIdx) throws BaseException{
+        try {
+            GetHintRes getHintRes = hintDao.selectHint(evidenceIdx);
+            return  getHintRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 
 }

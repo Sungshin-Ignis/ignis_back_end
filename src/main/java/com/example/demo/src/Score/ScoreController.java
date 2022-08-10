@@ -2,6 +2,8 @@ package com.example.demo.src.Score;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.Score.model.GetScoreRes;
+import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
 import com.example.demo.src.user.UserProvider;
 import com.example.demo.src.user.UserService;
 import com.example.demo.src.user.model.*;
@@ -35,8 +37,22 @@ public class ScoreController {
         this.scoreService = scoreService;
         this.jwtService = jwtService;
     }
-
-
-
+    /**
+     * 승패 조회 API
+     * [GET] /score/result
+     *
+     * @return BaseResponse<GetUserRes>
+     */
+    //Query String
+    @ResponseBody
+    @GetMapping("/result") // (GET) 127.0.0.1:9000/score/result?userIdx=
+    public BaseResponse<GetScoreRes> getScoreTotal(@RequestParam int userIdx) {
+        try{
+            GetScoreRes getScoreRes = scoreProvider.getScoreByTotal(userIdx);
+            return new BaseResponse<>(getScoreRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
 }

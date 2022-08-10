@@ -30,6 +30,8 @@ com/example/demo/src/Hint/HintProvider.java
  com.example.demo.src.Hint.HintProvider
 com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
+com/example/demo/src/Score/model/PostFavorableEvidenceSCRes.java
+ com.example.demo.src.Score.model.PostFavorableEvidenceSCRes
 com/example/demo/src/user/model/PostUserRes.java
  com.example.demo.src.user.model.PostUserRes
 com/example/demo/src/Score/ScoreService.java
@@ -56,6 +58,8 @@ com/example/demo/src/Score/ScoreProvider.java
  com.example.demo.src.Score.ScoreProvider
 com/example/demo/src/user/UserDao.java
  com.example.demo.src.user.UserDao
+com/example/demo/src/Score/model/PostScoreReq.java
+ com.example.demo.src.Score.model.PostScoreReq
 com/example/demo/src/user/model/PatchUserReq.java
  com.example.demo.src.user.model.PatchUserReq
 com/example/demo/src/incidentNote/model/PostIncidentNoteReq.java
@@ -74,10 +78,12 @@ com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
 com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
-com/example/demo/src/user/model/User.java
- com.example.demo.src.user.model.User
+com/example/demo/src/Score/model/GetScoreRes.java
+ com.example.demo.src.Score.model.GetScoreRes
 com/example/demo/src/user/model/DeleteUserRes.java
  com.example.demo.src.user.model.DeleteUserRes
+com/example/demo/src/user/model/User.java
+ com.example.demo.src.user.model.User
 com/example/demo/src/Law/LawProvider.java
  com.example.demo.src.Law.LawProvider
 com/example/demo/src/Hint/HintController.java
