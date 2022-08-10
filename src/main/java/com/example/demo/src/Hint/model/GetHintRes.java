@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetHintRes {
+    private int hintIdx;
     private int evidenceIdx;
     private String option1;
     private String option2;
