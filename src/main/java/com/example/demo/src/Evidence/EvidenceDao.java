@@ -23,7 +23,7 @@ public class EvidenceDao {
     }
 
     public GetEvidenceRes getHasHintByEvidenceIdx(int evidenceIdx){
-        String getHasHintQuery = "select hasHint from Evidence where evidenceIdx = ?";
+        String getHasHintQuery = "select `hasHint` from `theJudgement_db`.`Evidence` where `evidenceIdx` = ?";
         int checkEvidenceExistParams = evidenceIdx;
         return this.jdbcTemplate.queryForObject(getHasHintQuery,
                 (rs,rowNum) -> new GetEvidenceRes(
@@ -34,7 +34,7 @@ public class EvidenceDao {
     }
 
     public int checkEvidenceExist(int evidenceIdx){
-        String checkUserExistQuery = "select exists(select evidenceIdx from Evidence where evidenceIdx = ?)";
+        String checkUserExistQuery = "select exists(select `evidenceIdx` from `theJudgement_db`.`Evidence` where `evidenceIdx` = ?)";
         int checkEvidenceExistParams = evidenceIdx;
         return this.jdbcTemplate.queryForObject(checkUserExistQuery,
                 int.class,

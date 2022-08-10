@@ -25,7 +25,7 @@ public class HintDao {
     }
 
     public GetHintRes selectHint(int evidenceIdx) {
-        String checkHintExistQuery = "select * from Hint where evidenceIdx = ?";
+        String checkHintExistQuery = "select * from `theJudgement_db`.`Hint` where `evidenceIdx` = ?";
         int checkHintExistParams = evidenceIdx;
         return this.jdbcTemplate.queryForObject(checkHintExistQuery,
                 (rs,rowNum) -> new GetHintRes(
