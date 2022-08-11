@@ -1,7 +1,9 @@
 package com.example.demo.src.incidentNote;
 
 
+import com.example.demo.src.Hint.model.GetHintRes;
 import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
+import com.example.demo.src.incidentNote.model.GetIncidentNoteTrialRes;
 import com.example.demo.src.user.model.PatchUserReq;
 import com.example.demo.src.user.model.PostUserReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,22 @@ import java.util.List;
 public class IncidentNoteDao {
 
     private JdbcTemplate jdbcTemplate;
+
+    public GetIncidentNoteTrialRes selectTrialLines(int userIdx) {
+        String selectTrialLinesQuery = "select case when";
+        int selectTrialLinesParams = userIdx;
+        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
+                (rs,rowNum) -> new GetIncidentNoteTrialRes(
+                        rs.getInt("evidenceIdx"),
+                        rs.getString("evidenceName"),
+                        rs.getString("attorneyLines"),
+                        rs.getString("lawyerLines"),
+                        rs.getString("attorneyHintLines"),
+                        rs.getString("lawyerHintLines")
+                ),
+                selectTrialLinesParams);
+    }
+
 
     @Autowired
     public void setDataSource(DataSource dataSource){
@@ -55,4 +73,6 @@ public class IncidentNoteDao {
         String lastInsertIdxQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
     }
+
+
 }

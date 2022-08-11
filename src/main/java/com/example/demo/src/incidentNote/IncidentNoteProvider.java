@@ -2,8 +2,10 @@ package com.example.demo.src.incidentNote;
 
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.Hint.model.GetHintRes;
 import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
 import com.example.demo.src.incidentNote.IncidentNoteDao;
+import com.example.demo.src.incidentNote.model.GetIncidentNoteTrialRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,4 +57,15 @@ public class IncidentNoteProvider {
     public int checkEmail(String email) {
         return 0;
     }
+
+    public GetIncidentNoteTrialRes getTrialLines(int userIdx) throws BaseException {
+        try {
+            GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteDao.selectTrialLines(userIdx);
+            return  getIncidentNoteTrialRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 }

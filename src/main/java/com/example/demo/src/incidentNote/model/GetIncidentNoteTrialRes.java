@@ -8,9 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetIncidentNoteRes {
-    // 사진, 이름
+public class GetIncidentNoteTrialRes {
     private int evidenceIdx;
-    private String evidenceImgUrl;
     private String evidenceName;
+    private String attorneyLines;
+    private String lawyerLines;
+    private String attorneyHintLines;
+    private String lawyerHintLines;
 }
