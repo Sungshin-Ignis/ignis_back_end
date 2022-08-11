@@ -75,4 +75,22 @@ public class IncidentNoteController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+    /**
+     * 재판 대사 API
+     * [GET] /incidentNote/trial?userIdx=
+     *
+     * @return BaseResponse<GetIncidentNoteTrialRes>
+     */
+    //Query String
+    @ResponseBody
+    @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=
+    public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx) {
+        try{
+            GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteProvider.getTrialLines(userIdx);
+            return new BaseResponse<>(getIncidentNoteTrialRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
 }
