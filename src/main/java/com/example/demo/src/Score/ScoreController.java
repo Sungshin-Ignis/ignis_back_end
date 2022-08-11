@@ -2,9 +2,8 @@ package com.example.demo.src.Score;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.Score.model.GetScoreRes;
-import com.example.demo.src.Score.model.PatchFavorableEvidenceSCRes;
-import com.example.demo.src.Score.model.PatchScoreReq;
+import com.example.demo.config.BaseResponseStatus;
+import com.example.demo.src.Score.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,6 @@ public class ScoreController {
      * 승패 조회 API
      * [GET] /score/result
      *
-     * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
@@ -49,22 +47,106 @@ public class ScoreController {
         }
     }
     /**
-     *  favorableEvidenceSC 증가 api API
+     *  favorableEvidenceSC 증가 API
      * [PATCH] /score/favorableEvidenceSC
      *
-     * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
-    @PatchMapping("/{favorableEvidenceSC1}") // (PATCH) 127.0.0.1:9000/score/favorableEvidenceSC
-    public BaseResponse<String> addFavorableEvidenceSC(@PathVariable ("favorableEvidenceSC1") int favorableEvidenceSC1, @RequestBody PatchScoreReq patchScoreReq) {
+    @PatchMapping("/favorableEvidenceSC") // (PATCH) 127.0.0.1:9000/score/favorableEvidenceSC
+    public BaseResponse<String> addFavorableEvidenceSC(@RequestBody PatchFavorableEvidenceSCReq patchFavorableEvidenceSCReq) {
+        if(patchFavorableEvidenceSCReq.getFavorableEvidenceSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
         try{
-            scoreService.addFavorableEvidenceSC(patchScoreReq.getUserIdx(), favorableEvidenceSC1, patchScoreReq);
-            String result="favorableEvidenceSC 점수 증가";
+            scoreService.addFavorableEvidenceSC(patchFavorableEvidenceSCReq.getUserIdx(), patchFavorableEvidenceSCReq);
+            String result="favorableEvidenceSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    /**
+     *   hintSC 증가 API
+     * [PATCH] /score/hintSC
+     *
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/hintSC") // (PATCH) 127.0.0.1:9000/score/hintSC
+    public BaseResponse<String> addHintSC(@RequestBody PatchHintSCReq patchHintSCReq) {
+        if(patchHintSCReq.getHintSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addHintSC(patchHintSCReq.getUserIdx(), patchHintSCReq);
+            String result="hintSC 점수가 증가하였습니다";
             return new BaseResponse<>(result);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
     }
 
+    /**
+     *   lawSC 증가 API
+     * [PATCH] /score/lawSC
+     *
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/lawSC") // (PATCH) 127.0.0.1:9000/score/lawSC
+    public BaseResponse<String> addLawSC(@RequestBody PatchLawSCReq patchLawSCReq) {
+        if(patchLawSCReq.getLawSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addLawSC(patchLawSCReq.getUserIdx(), patchLawSCReq);
+            String result="lawSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     *  impeachmentSC 증가 API
+     * [PATCH] /score/impeachmentSC
+     *
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/impeachmentSC") // (PATCH) 127.0.0.1:9000/score/impeachmentSC
+    public BaseResponse<String> addImpeachmentSC(@RequestBody PatchImpeachmentSCReq patchImpeachmentSCReq) {
+        if(patchImpeachmentSCReq.getImpeachmentSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addImpeachmentSC(patchImpeachmentSCReq.getUserIdx(), patchImpeachmentSCReq);
+            String result="impeachmentSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     *  questionSC 증가 API
+     * [PATCH] /score/questionSC
+     *
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/questionSC") // (PATCH) 127.0.0.1:9000/score/questionSC
+    public BaseResponse<String> addQuestionSC(@RequestBody PatchQuestionSCReq patchQuestionSCReq) {
+        if(patchQuestionSCReq.getQuestionSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addQuestionSC(patchQuestionSCReq.getUserIdx(), patchQuestionSCReq);
+            String result="questionSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

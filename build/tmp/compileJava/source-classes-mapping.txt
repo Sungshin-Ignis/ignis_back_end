@@ -4,6 +4,8 @@ com/example/demo/config/Constant.java
  com.example.demo.config.Constant
 com/example/demo/src/Law/model/GetLawRes.java
  com.example.demo.src.Law.model.GetLawRes
+com/example/demo/src/Score/model/PatchFavorableEvidenceSCReq.java
+ com.example.demo.src.Score.model.PatchFavorableEvidenceSCReq
 com/example/demo/src/incidentNote/model/GetIncidentNoteRes.java
  com.example.demo.src.incidentNote.model.GetIncidentNoteRes
 com/example/demo/src/incidentNote/IncidentNoteProvider.java
@@ -12,6 +14,8 @@ com/example/demo/src/Evidence/EvidenceProvider.java
  com.example.demo.src.Evidence.EvidenceProvider
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
+com/example/demo/src/Score/model/PatchHintSCReq.java
+ com.example.demo.src.Score.model.PatchHintSCReq
 com/example/demo/src/incidentNote/IncidentNoteDao.java
  com.example.demo.src.incidentNote.IncidentNoteDao
 com/example/demo/src/incidentNote/IncidentNoteService.java
@@ -22,12 +26,16 @@ com/example/demo/src/user/model/DeleteUserReq.java
  com.example.demo.src.user.model.DeleteUserReq
 com/example/demo/src/Law/LawService.java
  com.example.demo.src.Law.LawService
+com/example/demo/src/Score/model/PatchQuestionSCRes.java
+ com.example.demo.src.Score.model.PatchQuestionSCRes
 com/example/demo/src/Hint/HintService.java
  com.example.demo.src.Hint.HintService
 com/example/demo/src/Hint/model/GetHintRes.java
  com.example.demo.src.Hint.model.GetHintRes
 com/example/demo/src/Hint/HintProvider.java
  com.example.demo.src.Hint.HintProvider
+com/example/demo/src/Score/model/PatchLawSCRes.java
+ com.example.demo.src.Score.model.PatchLawSCRes
 com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
 com/example/demo/src/user/model/PostUserRes.java
@@ -36,6 +44,10 @@ com/example/demo/src/Score/ScoreService.java
  com.example.demo.src.Score.ScoreService
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
+com/example/demo/src/Score/model/PatchImpeachmentSCReq.java
+ com.example.demo.src.Score.model.PatchImpeachmentSCReq
+com/example/demo/src/Score/model/PatchFavorableEvidenceSCRes.java
+ com.example.demo.src.Score.model.PatchFavorableEvidenceSCRes
 com/example/demo/src/user/UserService.java
  com.example.demo.src.user.UserService
 com/example/demo/config/BaseException.java
@@ -72,20 +84,24 @@ com/example/demo/src/user/model/PostLoginReq.java
  com.example.demo.src.user.model.PostLoginReq
 com/example/demo/src/Evidence/EvidenceService.java
  com.example.demo.src.Evidence.EvidenceService
-com/example/demo/src/incidentNote/model/PostIncidentNoteRes.java
- com.example.demo.src.incidentNote.model.PostIncidentNoteRes
+com/example/demo/src/user/UserController.java
+ com.example.demo.src.user.UserController
+com/example/demo/src/Score/model/PatchImpeachmentSCRes.java
+ com.example.demo.src.Score.model.PatchImpeachmentSCRes
 com/example/demo/src/Score/model/GetScoreRes.java
  com.example.demo.src.Score.model.GetScoreRes
-com/example/demo/src/user/model/User.java
- com.example.demo.src.user.model.User
 com/example/demo/src/user/model/DeleteUserRes.java
  com.example.demo.src.user.model.DeleteUserRes
+com/example/demo/src/user/model/User.java
+ com.example.demo.src.user.model.User
 com/example/demo/src/Law/LawProvider.java
  com.example.demo.src.Law.LawProvider
 com/example/demo/src/Evidence/EvidenceDao.java
  com.example.demo.src.Evidence.EvidenceDao
 com/example/demo/src/user/model/GetUserRes.java
  com.example.demo.src.user.model.GetUserRes
+com/example/demo/src/Score/model/PatchHintSCRes.java
+ com.example.demo.src.Score.model.PatchHintSCRes
 com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
 com/example/demo/src/Evidence/EvidenceController.java
@@ -94,9 +110,13 @@ com/example/demo/src/Law/LawDao.java
  com.example.demo.src.Law.LawDao
 com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
+com/example/demo/src/Score/model/PatchQuestionSCReq.java
+ com.example.demo.src.Score.model.PatchQuestionSCReq
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
 com/example/demo/src/Hint/HintController.java
  com.example.demo.src.Hint.HintController
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
+com/example/demo/src/Score/model/PatchLawSCReq.java
+ com.example.demo.src.Score.model.PatchLawSCReq
+com/example/demo/src/incidentNote/model/PostIncidentNoteRes.java
+ com.example.demo.src.incidentNote.model.PostIncidentNoteRes
