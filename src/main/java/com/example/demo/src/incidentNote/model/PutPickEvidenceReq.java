@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostIncidentNoteReq {
-    // userIdx, evidenceIdx 리스트로
+public class PutPickEvidenceReq {
     private int userIdx;
-    private int evidenceIdx;
+    private List<Integer> evidenceIdx;
 }

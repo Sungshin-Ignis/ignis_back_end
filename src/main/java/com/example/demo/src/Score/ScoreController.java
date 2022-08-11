@@ -22,16 +22,13 @@ public class ScoreController {
     @Autowired
     private final JwtService jwtService;
 
-
-
-
     public ScoreController(ScoreProvider scoreProvider, ScoreService scoreService, JwtService jwtService){
         this.scoreProvider = scoreProvider;
         this.scoreService = scoreService;
         this.jwtService = jwtService;
     }
     /**
-     * 승패 조회 API
+     * totalSC 조회 API
      * [GET] /score/result
      *
      */
