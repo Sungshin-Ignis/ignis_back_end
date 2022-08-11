@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetUserRes {
     private int userIdx;
+    private String name;
     private Boolean isLawyer;
 
 }

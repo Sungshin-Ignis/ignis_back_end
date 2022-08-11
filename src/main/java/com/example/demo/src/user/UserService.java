@@ -49,6 +49,7 @@ public class UserService {
         }
         try{
             int userIdx = userDao.createUser(postUserReq);
+            userDao.insertUser(userIdx);
             //jwt 발급.
             // TODO: jwt는 다음주차에서 배울 내용입니다!
             String jwt = jwtService.createJwt(userIdx);
@@ -58,6 +59,7 @@ public class UserService {
         }
     }
 
+    /*
     public void modifyUserName(PatchUserReq patchUserReq) throws BaseException {
         try{
             int result = userDao.modifyUserName(patchUserReq);
@@ -68,5 +70,5 @@ public class UserService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
+     */
 }

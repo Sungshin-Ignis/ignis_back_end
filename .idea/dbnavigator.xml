@@ -38,6 +38,9 @@
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="e6242da7-a663-4c99-a2f7-5841bb72a86c" />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="e6242da7-a663-4c99-a2f7-5841bb72a86c" dataset="theJudgement_db.Evidence" active-filter-id="" />
+  </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
