@@ -3,8 +3,7 @@ package com.example.demo.src.Score;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.Score.model.GetScoreRes;
-import com.example.demo.src.Score.model.PatchFavorableEvidenceSCReq;
+import com.example.demo.src.Score.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,6 @@ public class ScoreController {
      * 승패 조회 API
      * [GET] /score/result
      *
-     * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
@@ -52,7 +50,6 @@ public class ScoreController {
      *  favorableEvidenceSC 증가 API
      * [PATCH] /score/favorableEvidenceSC
      *
-     * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
@@ -73,28 +70,83 @@ public class ScoreController {
      *   hintSC 증가 API
      * [PATCH] /score/hintSC
      *
-     * @return BaseResponse<GetUserRes>
      */
-
+    //Query String
+    @ResponseBody
+    @PatchMapping("/hintSC") // (PATCH) 127.0.0.1:9000/score/hintSC
+    public BaseResponse<String> addHintSC(@RequestBody PatchHintSCReq patchHintSCReq) {
+        if(patchHintSCReq.getHintSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addHintSC(patchHintSCReq.getUserIdx(), patchHintSCReq);
+            String result="hintSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     /**
      *   lawSC 증가 API
      * [PATCH] /score/lawSC
      *
-     * @return BaseResponse<GetUserRes>
      */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/lawSC") // (PATCH) 127.0.0.1:9000/score/lawSC
+    public BaseResponse<String> addLawSC(@RequestBody PatchLawSCReq patchLawSCReq) {
+        if(patchLawSCReq.getLawSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addLawSC(patchLawSCReq.getUserIdx(), patchLawSCReq);
+            String result="lawSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     /**
      *  impeachmentSC 증가 API
      * [PATCH] /score/impeachmentSC
      *
-     * @return BaseResponse<GetUserRes>
      */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/impeachmentSC") // (PATCH) 127.0.0.1:9000/score/impeachmentSC
+    public BaseResponse<String> addImpeachmentSC(@RequestBody PatchImpeachmentSCReq patchImpeachmentSCReq) {
+        if(patchImpeachmentSCReq.getImpeachmentSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addImpeachmentSC(patchImpeachmentSCReq.getUserIdx(), patchImpeachmentSCReq);
+            String result="impeachmentSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     /**
      *  questionSC 증가 API
      * [PATCH] /score/questionSC
      *
-     * @return BaseResponse<GetUserRes>
      */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/questionSC") // (PATCH) 127.0.0.1:9000/score/questionSC
+    public BaseResponse<String> addQuestionSC(@RequestBody PatchQuestionSCReq patchQuestionSCReq) {
+        if(patchQuestionSCReq.getQuestionSC() < 0){
+            return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
+        }
+        try{
+            scoreService.addQuestionSC(patchQuestionSCReq.getUserIdx(), patchQuestionSCReq);
+            String result="questionSC 점수가 증가하였습니다";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

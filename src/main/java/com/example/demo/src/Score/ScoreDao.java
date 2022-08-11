@@ -47,4 +47,39 @@ public class ScoreDao {
     }
 
 
+    public int updateHintSC(int userIdx, int hintSC) {
+        String updateHintSCExistQuery = "update theJudgement_db.Score set hintSC = ? where userIdx = ?";
+        Object []updateHintSCParams = new Object[] {hintSC, userIdx};
+        this.jdbcTemplate.update(updateHintSCExistQuery, updateHintSCParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
+
+    public int updateLawSC(int userIdx, int lawSC) {
+        String updateLawSCExistQuery = "update theJudgement_db.Score set lawSC = ? where userIdx = ?";
+        Object []updateLawSCParams = new Object[] {lawSC, userIdx};
+        this.jdbcTemplate.update(updateLawSCExistQuery, updateLawSCParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
+
+    public int updateImpeachmentSC(int userIdx, int impeachmentSC) {
+        String updateImpeachmentSCExistQuery = "update theJudgement_db.Score set impeachmentSC = ? where userIdx = ?";
+        Object []updateImpeachmentSCParams = new Object[] {impeachmentSC, userIdx};
+        this.jdbcTemplate.update(updateImpeachmentSCExistQuery, updateImpeachmentSCParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
+
+    public int updateQuestionSC(int userIdx, int questionSC) {
+        String updateQuestionSCExistQuery = "update theJudgement_db.Score set questionSC = ? where userIdx = ?";
+        Object []updateQuestionSCParams = new Object[] {questionSC, userIdx};
+        this.jdbcTemplate.update(updateQuestionSCExistQuery, updateQuestionSCParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
 }

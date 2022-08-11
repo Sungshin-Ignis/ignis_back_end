@@ -2,7 +2,7 @@ package com.example.demo.src.Score;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.Score.model.PatchFavorableEvidenceSCReq;
+import com.example.demo.src.Score.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,4 +39,43 @@ public class ScoreService {
         }
     }
 
+    public void addHintSC(int userIdx, PatchHintSCReq patchHintSCReq) throws BaseException{
+        try {
+            int result = scoreDao.updateHintSC(userIdx, patchHintSCReq.getHintSC());
+
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void addLawSC(int userIdx, PatchLawSCReq patchLawSCReq) throws BaseException {
+        try {
+            int result = scoreDao.updateLawSC(userIdx, patchLawSCReq.getLawSC());
+
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void addImpeachmentSC(int userIdx, PatchImpeachmentSCReq patchImpeachmentSCReq) throws BaseException {
+        try {
+            int result = scoreDao.updateImpeachmentSC(userIdx, patchImpeachmentSCReq.getImpeachmentSC());
+
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void addQuestionSC(int userIdx, PatchQuestionSCReq patchQuestionSCReq) throws BaseException {
+        try {
+            int result = scoreDao.updateQuestionSC(userIdx, patchQuestionSCReq.getQuestionSC());
+
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
