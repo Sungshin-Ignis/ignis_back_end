@@ -35,7 +35,7 @@ public enum BaseResponseStatus {
     // [POST] /incidentNote
     POST_INCIDENTNOTE_NONEXISTS_EVIDENCE(false, 2020, "존재하지 않는 증거입니다."),
 
-
+    PACTH_SCORE_INVALID_SCORE(false,2030,"점수가 0보다 작습니다."),
     /**
      * 3000 : Response 오류
      */

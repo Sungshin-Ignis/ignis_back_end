@@ -37,12 +37,14 @@ public class ScoreDao {
                 checkScoreExistParams);
     }
 
-    public int updateFavorableEvidenceSC(int favorableEvidenceSC1, int favorableEvidenceSC) {
-        String updateFavorableEvidenceSCExistQuery = "UPDATE Score SET favorableEvidenceSC += 5 WHERE favorableEvidenceSC1 = ?";
-        Object []updateFavorableEvidenceSCParams = new Object[] {favorableEvidenceSC, favorableEvidenceSC1};
+    public int updateFavorableEvidenceSC(int userIdx, int favorableEvidenceSC) {
+        String updateFavorableEvidenceSCExistQuery = "update theJudgement_db.Score set favorableEvidenceSC = ? where userIdx = ?";
+        Object []updateFavorableEvidenceSCParams = new Object[] {favorableEvidenceSC, userIdx};
         this.jdbcTemplate.update(updateFavorableEvidenceSCExistQuery, updateFavorableEvidenceSCParams);
 
         String lastInsertIdxQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
     }
+
+
 }

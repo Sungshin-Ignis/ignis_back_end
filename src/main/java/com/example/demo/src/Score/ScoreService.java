@@ -2,8 +2,7 @@ package com.example.demo.src.Score;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.Score.model.PatchFavorableEvidenceSCRes;
-import com.example.demo.src.Score.model.PatchScoreReq;
+import com.example.demo.src.Score.model.PatchFavorableEvidenceSCReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +29,14 @@ public class ScoreService {
 
     }
 
-    public void addFavorableEvidenceSC(int userIdx, int favorableEvidenceSC1, PatchScoreReq patchScoreReq) throws BaseException{
+    public void addFavorableEvidenceSC(int userIdx, PatchFavorableEvidenceSCReq patchFavorableEvidenceSCReq) throws BaseException{
         try {
-            int addFavorableEvidenceSC1 = scoreDao.updateFavorableEvidenceSC(favorableEvidenceSC1, patchScoreReq.getFavorableEvidenceSC());
+            int result = scoreDao.updateFavorableEvidenceSC(userIdx, patchFavorableEvidenceSCReq.getFavorableEvidenceSC());
 
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
 }
