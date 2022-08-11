@@ -58,13 +58,33 @@ public class IncidentNoteController {
 
     /**
      * 사건 노트에 증거 저장 API
-     * [POST] /incidentNote
+     * [POST] /incidentNote/evidence
      * @return BaseResponse<PostIncidentNoteRes>
      */
     // Body
     @ResponseBody
-    @PostMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence?userIdx=
+    @PostMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence
     public BaseResponse<PostIncidentNoteRes> createIncidentNote(@RequestBody PostIncidentNoteReq postIncidentNoteReq) {
+        if (postIncidentNoteReq.getEvidenceIdx() > 12 && postIncidentNoteReq.getEvidenceIdx() < 0) {
+            return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
+        }
+        try{
+            PostIncidentNoteRes postIncidentNoteRes = incidentNoteService.createIncidentNote(postIncidentNoteReq.getUserIdx(), postIncidentNoteReq);
+            return new BaseResponse<>(postIncidentNoteRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 증거 선택 API
+     * [PUT] /incidentNote?userIdx=
+     * @return BaseResponse<PostIncidentNoteRes>
+     */
+    // Body
+    @ResponseBody
+    @PutMapping("") // (POST) 127.0.0.1:9000/incidentNote/evidence?userIdx=
+    public BaseResponse<PostIncidentNoteRes> PickIncidentNote(@RequestParam int userIdx, @RequestBody PostIncidentNoteReq postIncidentNoteReq) {
         if (postIncidentNoteReq.getEvidenceIdx() > 12 && postIncidentNoteReq.getEvidenceIdx() < 0) {
             return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
         }
