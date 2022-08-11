@@ -8,6 +8,8 @@ com/example/demo/src/Score/model/PatchFavorableEvidenceSCReq.java
  com.example.demo.src.Score.model.PatchFavorableEvidenceSCReq
 com/example/demo/src/incidentNote/model/GetIncidentNoteRes.java
  com.example.demo.src.incidentNote.model.GetIncidentNoteRes
+com/example/demo/src/incidentNote/model/PutPickEvidenceReq.java
+ com.example.demo.src.incidentNote.model.PutPickEvidenceReq
 com/example/demo/src/incidentNote/IncidentNoteProvider.java
  com.example.demo.src.incidentNote.IncidentNoteProvider
 com/example/demo/src/Evidence/EvidenceProvider.java
@@ -90,10 +92,10 @@ com/example/demo/src/Score/model/PatchImpeachmentSCRes.java
  com.example.demo.src.Score.model.PatchImpeachmentSCRes
 com/example/demo/src/Score/model/GetScoreRes.java
  com.example.demo.src.Score.model.GetScoreRes
-com/example/demo/src/user/model/DeleteUserRes.java
- com.example.demo.src.user.model.DeleteUserRes
 com/example/demo/src/user/model/User.java
  com.example.demo.src.user.model.User
+com/example/demo/src/user/model/DeleteUserRes.java
+ com.example.demo.src.user.model.DeleteUserRes
 com/example/demo/src/Law/LawProvider.java
  com.example.demo.src.Law.LawProvider
 com/example/demo/src/Evidence/EvidenceDao.java
