@@ -53,12 +53,10 @@ public class IncidentNoteProvider {
         }
     }
 
-
-    public int checkEmail(String email) {
-        return 0;
-    }
-
     public GetIncidentNoteTrialRes getTrialLines(int userIdx) throws BaseException {
+        if (checkUserExist(userIdx)==0) {
+            throw new BaseException(USERS_EMPTY_USER_ID);
+        }
         try {
             GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteDao.selectTrialLines(userIdx);
             return  getIncidentNoteTrialRes;

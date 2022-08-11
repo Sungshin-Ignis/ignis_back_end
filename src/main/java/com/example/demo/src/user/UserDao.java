@@ -24,7 +24,7 @@ public class UserDao {
 
 
     public GetUserRes getUsersByIdx(int userIdx){
-        String getUsersByIdxQuery = "select userIdx,name,isLawyer from User where userIdx=?";
+        String getUsersByIdxQuery = "select userIdx,name,isLawyer from theJudgement_db.User where userIdx=?";
         int getUsersByIdxParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUsersByIdxQuery,
                 (rs, rowNum) -> new GetUserRes(
@@ -36,7 +36,7 @@ public class UserDao {
 
     // 유저 추가
     public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into User (id, pw, name, email) VALUES (?,?,?,?)";
+        String createUserQuery = "insert into theJudgement_db.User (id, pw, name, email) VALUES (?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getId(), postUserReq.getPw(),postUserReq.getName(), postUserReq.getEmail()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
@@ -46,15 +46,15 @@ public class UserDao {
 
     // 유저 추가 시 사건노트 기본값, score 행 삽입
     public void insertUser(int userIdx){
-        String createUserQuery = "insert into Score(userIdx) values(?);\n" +
-                "insert into IncidentNote(userIdx, evidenceIdx) values(?,10);";
+        String createUserQuery = "insert into theJudgement_db.Score(userIdx) values(?);\n" +
+                "insert into theJudgement_db.IncidentNote(userIdx, evidenceIdx) values(?,10);";
         Object[] createUserParams = new Object[]{userIdx,userIdx};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
     }
 
     // 이메일 중복확인 쿼리
     public int checkEmail(String email){
-        String checkEmailQuery = "select exists(select email from User where email = ?)";
+        String checkEmailQuery = "select exists(select email from theJudgement_db.User where email = ?)";
         String checkEmailParams = email;
         return this.jdbcTemplate.queryForObject(checkEmailQuery,
                 int.class,

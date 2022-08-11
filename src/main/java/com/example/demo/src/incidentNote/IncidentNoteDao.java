@@ -25,10 +25,7 @@ public class IncidentNoteDao {
                 (rs,rowNum) -> new GetIncidentNoteTrialRes(
                         rs.getInt("evidenceIdx"),
                         rs.getString("evidenceName"),
-                        rs.getString("attorneyLines"),
-                        rs.getString("lawyerLines"),
-                        rs.getString("attorneyHintLines"),
-                        rs.getString("lawyerHintLines")
+                        rs.getString("lines")
                 ),
                 selectTrialLinesParams);
     }
@@ -42,7 +39,7 @@ public class IncidentNoteDao {
 
     public GetIncidentNoteRes selectIncidentNote(int userIdx){
         String checkUserExistQuery = "select Evidence.evidenceIdx, evidenceName, evidenceImgUrl\n" +
-                "from Evidence,IncidentNote\n" +
+                "from theJudgement_db.Evidence,theJudgement_db.IncidentNote\n" +
                 "where Evidence.evidenceIdx = IncidentNote.evidenceIdx and IncidentNote.userIdx = ?\n" +
                 "order by Evidence.evidenceIdx;";
         int checkUserExistParams = userIdx;
@@ -56,7 +53,7 @@ public class IncidentNoteDao {
     }
 
     public int checkUserExist(int userIdx){
-        String checkUserExistQuery = "select exists(select userIdx from User where userIdx = ?)";
+        String checkUserExistQuery = "select exists(select userIdx from theJudgement_db.User where userIdx = ?)";
         int checkUserExistParams = userIdx;
         return this.jdbcTemplate.queryForObject(checkUserExistQuery,
                 int.class,
@@ -66,7 +63,7 @@ public class IncidentNoteDao {
 
 
     public int insertIncidentNote(int userIdx, int evidenceIdx) {
-        String insertPostQuery = "insert into IncidentNote(userIdx, evidenceIdx) values (?,?)";
+        String insertPostQuery = "insert into theJudgement_db.IncidentNote(userIdx, evidenceIdx) values (?,?)";
         Object []insertPostParams = new Object[] {userIdx, evidenceIdx};
         this.jdbcTemplate.update(insertPostQuery,
                 insertPostParams);
