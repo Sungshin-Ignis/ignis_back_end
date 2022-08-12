@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 import static com.example.demo.config.BaseResponseStatus.USERS_EMPTY_USER_ID;
 
@@ -32,12 +34,12 @@ public class IncidentNoteProvider {
     }
 
 
-    public GetIncidentNoteRes getIncidentNoteByIdx(int userIdxByJwt, int userIdx) throws BaseException{
+    public List<GetIncidentNoteRes> getIncidentNoteByIdx(int userIdxByJwt, int userIdx) throws BaseException{
         if (checkUserExist(userIdx)==0) {
             throw new BaseException(USERS_EMPTY_USER_ID);
         }
         try{
-            GetIncidentNoteRes getIncidentNote = incidentNoteDao.selectIncidentNote(userIdx);
+            List<GetIncidentNoteRes> getIncidentNote = incidentNoteDao.selectIncidentNote(userIdx);
             return getIncidentNote;
         }
         catch (Exception exception) {
@@ -53,12 +55,10 @@ public class IncidentNoteProvider {
         }
     }
 
-
-    public int checkEmail(String email) {
-        return 0;
-    }
-
     public GetIncidentNoteTrialRes getTrialLines(int userIdx) throws BaseException {
+        if (checkUserExist(userIdx)==0) {
+            throw new BaseException(USERS_EMPTY_USER_ID);
+        }
         try {
             GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteDao.selectTrialLines(userIdx);
             return  getIncidentNoteTrialRes;

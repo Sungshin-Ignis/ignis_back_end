@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetIncidentNoteRes {
-    // 사진, 이름
     private int evidenceIdx;
-    private String evidenceImgUrl;
     private String evidenceName;
+    private String evidenceImgUrl;
 }

@@ -18,35 +18,19 @@ public class IncidentNoteDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public GetIncidentNoteTrialRes selectTrialLines(int userIdx) {
-        String selectTrialLinesQuery = "select case when";
-        int selectTrialLinesParams = userIdx;
-        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
-                (rs,rowNum) -> new GetIncidentNoteTrialRes(
-                        rs.getInt("evidenceIdx"),
-                        rs.getString("evidenceName"),
-                        rs.getString("attorneyLines"),
-                        rs.getString("lawyerLines"),
-                        rs.getString("attorneyHintLines"),
-                        rs.getString("lawyerHintLines")
-                ),
-                selectTrialLinesParams);
-    }
-
-
     @Autowired
     public void setDataSource(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 
-    public GetIncidentNoteRes selectIncidentNote(int userIdx){
-        String checkUserExistQuery = "select Evidence.evidenceIdx, evidenceName, evidenceImgUrl\n" +
-                "from Evidence,IncidentNote\n" +
+    public List<GetIncidentNoteRes> selectIncidentNote(int userIdx){
+        String checkUserExistQuery = "select IncidentNote.evidenceIdx, evidenceName, evidenceImgUrl\n" +
+                "from theJudgement_db.Evidence,theJudgement_db.IncidentNote\n" +
                 "where Evidence.evidenceIdx = IncidentNote.evidenceIdx and IncidentNote.userIdx = ?\n" +
                 "order by Evidence.evidenceIdx;";
         int checkUserExistParams = userIdx;
-        return this.jdbcTemplate.queryForObject(checkUserExistQuery,
+        return this.jdbcTemplate.query(checkUserExistQuery,
                 (rs,rowNum) -> new GetIncidentNoteRes(
                         rs.getInt("evidenceIdx"),
                         rs.getString("evidenceName"),
@@ -56,7 +40,7 @@ public class IncidentNoteDao {
     }
 
     public int checkUserExist(int userIdx){
-        String checkUserExistQuery = "select exists(select userIdx from User where userIdx = ?)";
+        String checkUserExistQuery = "select exists(select userIdx from theJudgement_db.User where userIdx = ?)";
         int checkUserExistParams = userIdx;
         return this.jdbcTemplate.queryForObject(checkUserExistQuery,
                 int.class,
@@ -66,7 +50,7 @@ public class IncidentNoteDao {
 
 
     public int insertIncidentNote(int userIdx, int evidenceIdx) {
-        String insertPostQuery = "insert into IncidentNote(userIdx, evidenceIdx) values (?,?)";
+        String insertPostQuery = "insert into theJudgement_db.IncidentNote(userIdx, evidenceIdx) values (?,?)";
         Object []insertPostParams = new Object[] {userIdx, evidenceIdx};
         this.jdbcTemplate.update(insertPostQuery,
                 insertPostParams);
@@ -74,5 +58,16 @@ public class IncidentNoteDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
     }
 
+    public GetIncidentNoteTrialRes selectTrialLines(int userIdx) {
+        String selectTrialLinesQuery = "select case when";
+        int selectTrialLinesParams = userIdx;
+        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
+                (rs,rowNum) -> new GetIncidentNoteTrialRes(
+                        rs.getInt("evidenceIdx"),
+                        rs.getString("evidenceName"),
+                        rs.getString("lines")
+                ),
+                selectTrialLinesParams);
+    }
 
 }
