@@ -18,32 +18,19 @@ public class IncidentNoteDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public GetIncidentNoteTrialRes selectTrialLines(int userIdx) {
-        String selectTrialLinesQuery = "select case when";
-        int selectTrialLinesParams = userIdx;
-        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
-                (rs,rowNum) -> new GetIncidentNoteTrialRes(
-                        rs.getInt("evidenceIdx"),
-                        rs.getString("evidenceName"),
-                        rs.getString("lines")
-                ),
-                selectTrialLinesParams);
-    }
-
-
     @Autowired
     public void setDataSource(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 
-    public GetIncidentNoteRes selectIncidentNote(int userIdx){
-        String checkUserExistQuery = "select Evidence.evidenceIdx, evidenceName, evidenceImgUrl\n" +
+    public List<GetIncidentNoteRes> selectIncidentNote(int userIdx){
+        String checkUserExistQuery = "select IncidentNote.evidenceIdx, evidenceName, evidenceImgUrl\n" +
                 "from theJudgement_db.Evidence,theJudgement_db.IncidentNote\n" +
                 "where Evidence.evidenceIdx = IncidentNote.evidenceIdx and IncidentNote.userIdx = ?\n" +
                 "order by Evidence.evidenceIdx;";
         int checkUserExistParams = userIdx;
-        return this.jdbcTemplate.queryForObject(checkUserExistQuery,
+        return this.jdbcTemplate.query(checkUserExistQuery,
                 (rs,rowNum) -> new GetIncidentNoteRes(
                         rs.getInt("evidenceIdx"),
                         rs.getString("evidenceName"),
@@ -71,5 +58,16 @@ public class IncidentNoteDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
     }
 
+    public GetIncidentNoteTrialRes selectTrialLines(int userIdx) {
+        String selectTrialLinesQuery = "select case when";
+        int selectTrialLinesParams = userIdx;
+        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
+                (rs,rowNum) -> new GetIncidentNoteTrialRes(
+                        rs.getInt("evidenceIdx"),
+                        rs.getString("evidenceName"),
+                        rs.getString("lines")
+                ),
+                selectTrialLinesParams);
+    }
 
 }
