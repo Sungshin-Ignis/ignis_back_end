@@ -117,4 +117,27 @@ public class UserController {
     }
     */
 
+    /**
+     * 로그인 API
+     * [POST] /users/login
+     * @return BaseResponse<PostLoginRes>
+     */
+    //Query String
+
+    @ResponseBody
+    @PostMapping("/login") // (POST) 127.0.0.1:9000/users/login
+    public BaseResponse<PostLoginRes> login(@RequestBody PostLoginReq postLoginReq) {
+        try{
+            if(postLoginReq.getId() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_ID);
+            }
+            if(postLoginReq.getPw() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_PW);
+            }
+            PostLoginRes postLoginRes = userService.login(postLoginReq);
+            return new BaseResponse<>(postLoginRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

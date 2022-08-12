@@ -146,4 +146,9 @@ public class ScoreController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+/*
+    int userIdxByJwt = jwtService.getUserIdx();
+    if(post--Req.getUserIdx()!=userIdxByJwt){
+        return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT)
+    }*/
 }

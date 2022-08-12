@@ -3,9 +3,7 @@ package com.example.demo.src.user;
 
 import com.example.demo.config.BaseException;
 
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
-import com.example.demo.src.user.model.PostUserRes;
+import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -32,6 +30,7 @@ public class UserService {
         this.jwtService = jwtService;
 
     }
+
 
 
     public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
@@ -71,4 +70,23 @@ public class UserService {
         }
     }
      */
+
+    public PostLoginRes login(PostLoginReq postLoginReq) throws BaseException{
+        User user = userDao.getPw(postLoginReq);
+        String encryptPw;
+
+        try{
+            encryptPw = new SHA256().encrypt(postLoginReq.getPw());
+        } catch (Exception exception) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+        if(user.getPw().equals(encryptPw)){
+            int userIdx = user.getUserIdx();
+            String jwt = jwtService.createJwt(userIdx);
+            return new PostLoginRes(userIdx, jwt);
+        }
+        else {
+            throw new BaseException(FAILED_TO_LOGIN);
+        }
+    }
 }

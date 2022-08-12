@@ -1,10 +1,7 @@
 package com.example.demo.src.user;
 
 
-import com.example.demo.src.user.model.GetUserRes;
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
-import com.example.demo.src.user.model.PostUserRes;
+import com.example.demo.src.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -63,6 +60,17 @@ public class UserDao {
     }
 
 
-
-
+    public User getPw(PostLoginReq postLoginReq) {
+        String getPwQuery = "select userIdx, id, pw, name, email, isLawyer from User where id = ?";
+        String getPwParams = postLoginReq.getId();
+        return this.jdbcTemplate.queryForObject(getPwQuery,
+                (rs, rowNum) -> new User(
+                        rs.getInt("userIdx"),
+                        rs.getString("id"),
+                        rs.getString("pw"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getBoolean("isLawyer")),
+                getPwParams);
+    }
 }
