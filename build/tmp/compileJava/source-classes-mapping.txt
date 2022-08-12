@@ -1,5 +1,7 @@
 com/example/demo/src/Hint/HintDao.java
  com.example.demo.src.Hint.HintDao
+com/example/demo/src/incidentNote/model/GetIncidentNoteTrialRes.java
+ com.example.demo.src.incidentNote.model.GetIncidentNoteTrialRes
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
 com/example/demo/src/Law/model/GetLawRes.java
@@ -92,10 +94,10 @@ com/example/demo/src/Score/model/PatchImpeachmentSCRes.java
  com.example.demo.src.Score.model.PatchImpeachmentSCRes
 com/example/demo/src/Score/model/GetScoreRes.java
  com.example.demo.src.Score.model.GetScoreRes
-com/example/demo/src/user/model/User.java
- com.example.demo.src.user.model.User
 com/example/demo/src/user/model/DeleteUserRes.java
  com.example.demo.src.user.model.DeleteUserRes
+com/example/demo/src/user/model/User.java
+ com.example.demo.src.user.model.User
 com/example/demo/src/Law/LawProvider.java
  com.example.demo.src.Law.LawProvider
 com/example/demo/src/Evidence/EvidenceDao.java
