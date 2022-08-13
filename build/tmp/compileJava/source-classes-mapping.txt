@@ -4,6 +4,8 @@ com/example/demo/src/incidentNote/model/GetIncidentNoteTrialRes.java
  com.example.demo.src.incidentNote.model.GetIncidentNoteTrialRes
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
+com/example/demo/src/incidentNote/model/PatchGetHintReq.java
+ com.example.demo.src.incidentNote.model.PatchGetHintReq
 com/example/demo/src/Law/model/GetLawRes.java
  com.example.demo.src.Law.model.GetLawRes
 com/example/demo/src/Score/model/PatchFavorableEvidenceSCReq.java

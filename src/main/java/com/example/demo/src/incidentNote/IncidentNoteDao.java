@@ -75,4 +75,12 @@ public class IncidentNoteDao {
     }
 
 
+    public int updateGetHint(int userIdx, int evidenceIdx, int getHint) {
+        String updateGetHintQuery = "update theJudgement_db.IncidentNote set getHint = ? where userIdx = ? and evidenceIdx = ?";
+        Object []updateGetHintParams = new Object[] {getHint, userIdx, evidenceIdx};
+        this.jdbcTemplate.update(updateGetHintQuery, updateGetHintParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
 }

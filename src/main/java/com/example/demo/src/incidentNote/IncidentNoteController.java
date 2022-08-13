@@ -3,6 +3,7 @@ package com.example.demo.src.incidentNote;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
+import com.example.demo.src.Score.model.PatchImpeachmentSCReq;
 import com.example.demo.src.incidentNote.model.*;
 import com.example.demo.src.user.model.PostUserReq;
 import com.example.demo.src.user.model.PostUserRes;
@@ -93,4 +94,21 @@ public class IncidentNoteController {
         }
     }
 
+    /**
+     *  getHint 힌트 얻었는지 API
+     * [PATCH] /IncidentNote/getHint
+     *
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/getHint") // (PATCH) 127.0.0.1:9000/incidentNote/getHint
+    public BaseResponse<String> getHint(@RequestBody PatchGetHintReq patchGetHintReq) {
+        try{
+            incidentNoteService.getHint(patchGetHintReq.getUserIdx(), patchGetHintReq);
+            String result="힌트를 얻었습니다.";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

@@ -2,6 +2,8 @@ package com.example.demo.src.incidentNote;
 
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.Score.model.PatchImpeachmentSCReq;
+import com.example.demo.src.incidentNote.model.PatchGetHintReq;
 import com.example.demo.src.incidentNote.model.PostIncidentNoteReq;
 import com.example.demo.src.incidentNote.model.PostIncidentNoteRes;
 import com.example.demo.src.user.UserDao;
@@ -41,6 +43,16 @@ public class IncidentNoteService {
             int incidentNoteIdx = incidentNoteDao.insertIncidentNote(userIdx, postIncidentNoteReq.getEvidenceIdx());
 
             return new PostIncidentNoteRes(incidentNoteIdx);
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void getHint(int userIdx, PatchGetHintReq patchGetHintReq) throws BaseException  {
+        try {
+            int result = incidentNoteDao.updateGetHint(userIdx, patchGetHintReq.getEvidenceIdx(), patchGetHintReq.getGetHint());
+
         }
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
