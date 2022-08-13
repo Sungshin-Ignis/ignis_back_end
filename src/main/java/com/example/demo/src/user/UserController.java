@@ -125,7 +125,8 @@ public class UserController {
     //Query String
 
     @ResponseBody
-    @PostMapping("/login") // (POST) 127.0.0.1:9000/users/login
+    //@PostMapping("/login") // (POST) 127.0.0.1:9000/users/login
+    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     public BaseResponse<PostLoginRes> login(@RequestBody PostLoginReq postLoginReq) {
         try{
             if(postLoginReq.getId() == null){

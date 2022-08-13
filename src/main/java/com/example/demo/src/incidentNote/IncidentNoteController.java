@@ -12,13 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
-@RequestMapping("/incidentNote")
+@RequestMapping("/IncidentNote")
 public class IncidentNoteController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -42,27 +40,16 @@ public class IncidentNoteController {
 
     /**
      * 사건노트 조회 API
-     * [GET] /incidentNote
+     * [GET] /IncidentNote
      *
      * @return BaseResponse<GetUserRes>
      */
     //Query String
-    /*
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/incidentNote?userIdx=
+    @GetMapping("") // (GET) 127.0.0.1:9000/IncidentNote?userIdx=
     public BaseResponse<GetIncidentNoteRes> getUsers(@RequestParam int userIdx) {
         try{
             GetIncidentNoteRes getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
-            return new BaseResponse<>(getIncidentNoteRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }*/
-    @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/incidentNote/:userIdx
-    public BaseResponse<List<GetIncidentNoteRes>> getUsers(@PathVariable("userIdx") int userIdx) {
-        try{
-            List<GetIncidentNoteRes> getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -76,7 +63,7 @@ public class IncidentNoteController {
      */
     // Body
     @ResponseBody
-    @PostMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence
+    @PostMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence?userIdx=
     public BaseResponse<PostIncidentNoteRes> createIncidentNote(@RequestBody PostIncidentNoteReq postIncidentNoteReq) {
         if (postIncidentNoteReq.getEvidenceIdx() > 12 && postIncidentNoteReq.getEvidenceIdx() < 0) {
             return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);

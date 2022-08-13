@@ -24,7 +24,7 @@ public class LawDao {
     }
 
     public GetLawRes selectLaws() {
-        String checkLawExistQuery = "SELECT * FROM theJudgement_db.Law;";
+        String checkLawExistQuery = "SELECT * FROM Law;";
         return this.jdbcTemplate.queryForObject(checkLawExistQuery,
                 (rs,rowNum) -> new GetLawRes(
                         rs.getInt("lawIdx"),

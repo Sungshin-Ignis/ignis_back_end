@@ -27,7 +27,7 @@ public class ScoreDao {
     }
 
     public GetScoreRes selectScore(int userIdx) {
-        String checkResultExistQuery = "select sum(favorableEvidenceSC+hintSC+lawSC+impeachmentSC+questionSC) from theJudgement_db.Score where userIdx = ?";
+        String checkResultExistQuery = "select sum(favorableEvidenceSC+hintSC+lawSC+impeachmentSC+questionSC) from Score where userIdx = ?";
         int checkScoreExistParams = userIdx;
         return this.jdbcTemplate.queryForObject(checkResultExistQuery,
                 (rs,rowNum) -> new GetScoreRes(
