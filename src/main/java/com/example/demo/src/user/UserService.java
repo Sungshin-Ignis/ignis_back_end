@@ -48,7 +48,8 @@ public class UserService {
         }
         try{
             int userIdx = userDao.createUser(postUserReq);
-            userDao.insertUser(userIdx);
+            userDao.insertScore(userIdx);
+            userDao.insertIncidentNote(userIdx);
             //jwt 발급.
             // TODO: jwt는 다음주차에서 배울 내용입니다!
             String jwt = jwtService.createJwt(userIdx);
