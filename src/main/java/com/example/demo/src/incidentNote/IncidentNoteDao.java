@@ -19,21 +19,6 @@ public class IncidentNoteDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public GetIncidentNoteTrialRes selectTrialLines(int userIdx) {
-        String selectTrialLinesQuery = "select case when";
-        int selectTrialLinesParams = userIdx;
-        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
-                (rs,rowNum) -> new GetIncidentNoteTrialRes(
-                        rs.getInt("evidenceIdx"),
-                        rs.getString("evidenceName"),
-                        rs.getString("attorneyLines"),
-                        rs.getString("lawyerLines"),
-                        rs.getString("attorneyHintLines"),
-                        rs.getString("lawyerHintLines")
-                ),
-                selectTrialLinesParams);
-    }
-
 
     @Autowired
     public void setDataSource(DataSource dataSource){
@@ -75,6 +60,18 @@ public class IncidentNoteDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
     }
 
+    public GetIncidentNoteTrialRes selectTrialLines(int userIdx, int evidenceIdx) {
+        String selectTrialLinesQuery = "select evidenceIdx, evidenceName, lines" +
+                "from theJudgement_db.IncidentNote where userIdx = ? and evidenceIdx = ?";
+        Object []selectTrialLinesParams = new Object[] {userIdx, evidenceIdx};
+        return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
+                (rs,rowNum) -> new GetIncidentNoteTrialRes(
+                        rs.getInt("evidenceIdx"),
+                        rs.getString("evidenceName"),
+                        rs.getString("lines")
+                ),
+                selectTrialLinesParams);
+    }
 
     public int updateGetHint(int userIdx, int evidenceIdx, int getHint) {
         String updateGetHintQuery = "update theJudgement_db.IncidentNote set getHint = ? where userIdx = ? and evidenceIdx = ?";

@@ -60,9 +60,9 @@ public class IncidentNoteProvider {
         return 0;
     }
 
-    public GetIncidentNoteTrialRes getTrialLines(int userIdx) throws BaseException {
+    public GetIncidentNoteTrialRes getTrialLines(int userIdx, int evidenceIdx) throws BaseException {
         try {
-            GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteDao.selectTrialLines(userIdx);
+            GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteDao.selectTrialLines(userIdx, evidenceIdx);
             return  getIncidentNoteTrialRes;
         }
         catch (Exception exception) {

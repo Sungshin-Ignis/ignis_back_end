@@ -94,13 +94,16 @@ public class IncidentNoteController {
     //Query String
     @ResponseBody
     @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=
-    public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx) {
+    public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx, @RequestParam int evidenceIdx) {
+        if (evidenceIdx >= 12 || evidenceIdx < 0) {
+            return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
+        }
         try{
             int userIdxByJwt = jwtService.getUserIdx();
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
             }
-            GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteProvider.getTrialLines(userIdx);
+            GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteProvider.getTrialLines(userIdx, evidenceIdx);
             return new BaseResponse<>(getIncidentNoteTrialRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
