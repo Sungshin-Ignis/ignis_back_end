@@ -3,7 +3,6 @@ package com.example.demo.src.incidentNote;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.Score.model.PatchImpeachmentSCReq;
 import com.example.demo.src.incidentNote.model.*;
 import com.example.demo.src.user.model.PostUserReq;
 import com.example.demo.src.user.model.PostUserRes;
@@ -12,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
@@ -48,13 +49,9 @@ public class IncidentNoteController {
     //Query String
     @ResponseBody
     @GetMapping("") // (GET) 127.0.0.1:9000/IncidentNote?userIdx=
-    public BaseResponse<GetIncidentNoteRes> getUsers(@RequestParam int userIdx) {
+    public BaseResponse<List<GetIncidentNoteRes>> getUsers(@RequestParam int userIdx) {
         try{
-            int userIdxByJwt = jwtService.getUserIdx();
-            if(userIdx != userIdxByJwt){
-                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
-            }
-            GetIncidentNoteRes getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
+            List<GetIncidentNoteRes> getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -74,10 +71,6 @@ public class IncidentNoteController {
             return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
         }
         try{
-            int userIdxByJwt = jwtService.getUserIdx();
-            if(postIncidentNoteReq.getUserIdx() != userIdxByJwt){
-                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
-            }
             PostIncidentNoteRes postIncidentNoteRes = incidentNoteService.createIncidentNote(postIncidentNoteReq.getUserIdx(), postIncidentNoteReq);
             return new BaseResponse<>(postIncidentNoteRes);
         } catch(BaseException exception){
@@ -86,7 +79,7 @@ public class IncidentNoteController {
     }
     /**
      * 재판 대사 API
-     * [GET] /IncidentNote/trial?userIdx=
+     * [GET] /incidentNote/trial?userIdx=
      *
      * @return BaseResponse<GetIncidentNoteTrialRes>
      */
@@ -95,10 +88,6 @@ public class IncidentNoteController {
     @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=
     public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx) {
         try{
-            int userIdxByJwt = jwtService.getUserIdx();
-            if(userIdx != userIdxByJwt){
-                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
-            }
             GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteProvider.getTrialLines(userIdx);
             return new BaseResponse<>(getIncidentNoteTrialRes);
         } catch(BaseException exception){
@@ -106,25 +95,4 @@ public class IncidentNoteController {
         }
     }
 
-    /**
-     *  getHint 힌트 얻었는지 API
-     * [PATCH] /IncidentNote/getHint
-     *
-     */
-    //Query String
-    @ResponseBody
-    @PatchMapping("/getHint") // (PATCH) 127.0.0.1:9000/incidentNote/getHint
-    public BaseResponse<String> getHint(@RequestBody PatchGetHintReq patchGetHintReq) {
-        try{
-            int userIdxByJwt = jwtService.getUserIdx();
-            if(patchGetHintReq.getUserIdx() != userIdxByJwt){
-                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
-            }
-            incidentNoteService.getHint(patchGetHintReq.getUserIdx(), patchGetHintReq);
-            String result="힌트를 얻었습니다.";
-            return new BaseResponse<>(result);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
 }
