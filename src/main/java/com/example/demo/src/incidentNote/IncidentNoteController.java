@@ -18,7 +18,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
-@RequestMapping("/IncidentNote")
+@RequestMapping("/incidentNote")
 public class IncidentNoteController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -51,6 +51,10 @@ public class IncidentNoteController {
     @GetMapping("") // (GET) 127.0.0.1:9000/IncidentNote?userIdx=
     public BaseResponse<List<GetIncidentNoteRes>> getUsers(@RequestParam int userIdx) {
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             List<GetIncidentNoteRes> getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
         } catch(BaseException exception){
@@ -71,6 +75,10 @@ public class IncidentNoteController {
             return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(postIncidentNoteReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             PostIncidentNoteRes postIncidentNoteRes = incidentNoteService.createIncidentNote(postIncidentNoteReq.getUserIdx(), postIncidentNoteReq);
             return new BaseResponse<>(postIncidentNoteRes);
         } catch(BaseException exception){
@@ -88,6 +96,10 @@ public class IncidentNoteController {
     @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=
     public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx) {
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteProvider.getTrialLines(userIdx);
             return new BaseResponse<>(getIncidentNoteTrialRes);
         } catch(BaseException exception){
@@ -95,4 +107,51 @@ public class IncidentNoteController {
         }
     }
 
+    /**
+     *  getHint 힌트 얻었는지 API
+     * [PATCH] /IncidentNote/getHint
+     *
+     */
+    //Query String
+    @ResponseBody
+    @PatchMapping("/getHint") // (PATCH) 127.0.0.1:9000/incidentNote/getHint
+    public BaseResponse<String> getHint(@RequestBody PatchGetHintReq patchGetHintReq) {
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchGetHintReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+            incidentNoteService.getHint(patchGetHintReq.getUserIdx(), patchGetHintReq);
+            String result="힌트를 얻었습니다.";
+            return new BaseResponse<>(result);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 증거 선택 API
+     * [PUT] /incidentNote?userIdx=
+     * @return BaseResponse<PostIncidentNoteRes>
+     */
+    // Body
+    @ResponseBody
+    @PutMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence?userIdx=
+    public BaseResponse<PutPickEvidenceRes> PickEvidence(@RequestBody PutPickEvidenceReq putPickEvidenceReq) {
+        /*
+        if (putPickEvidenceReq.getEvidenceIdx()> 12 && putPickEvidenceReq.getEvidenceIdx() < 0) {
+            return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
+        }
+         */
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(putPickEvidenceReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+            PutPickEvidenceRes putPickEvidenceRes = incidentNoteService.pickEvidence(putPickEvidenceReq.getUserIdx(), putPickEvidenceReq);
+            return new BaseResponse<>(putPickEvidenceRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

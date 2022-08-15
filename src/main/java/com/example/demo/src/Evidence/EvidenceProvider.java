@@ -39,7 +39,7 @@ public class EvidenceProvider {
         }
     }
 
-    private int checkUserExist(int evidenceIdx) throws BaseException {
+    private int checkEvidenceExist(int evidenceIdx) throws BaseException {
         try{
             return evidenceDao.checkEvidenceExist(evidenceIdx);
         } catch (Exception exception){

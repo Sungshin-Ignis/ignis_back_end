@@ -2,6 +2,7 @@ package com.example.demo.src.user;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -44,9 +45,12 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
+    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx") int userIdx) {
         try{
-
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             GetUserRes getUsersRes = userProvider.getUsersByIdx(userIdx);
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
@@ -126,7 +130,7 @@ public class UserController {
 
     @ResponseBody
     //@PostMapping("/login") // (POST) 127.0.0.1:9000/users/login
-    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public BaseResponse<PostLoginRes> login(@RequestBody PostLoginReq postLoginReq) {
         try{
             if(postLoginReq.getId() == null){
@@ -141,4 +145,5 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
 }
