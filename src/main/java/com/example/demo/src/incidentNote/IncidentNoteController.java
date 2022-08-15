@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
@@ -47,9 +49,9 @@ public class IncidentNoteController {
     //Query String
     @ResponseBody
     @GetMapping("") // (GET) 127.0.0.1:9000/IncidentNote?userIdx=
-    public BaseResponse<GetIncidentNoteRes> getUsers(@RequestParam int userIdx) {
+    public BaseResponse<List<GetIncidentNoteRes>> getUsers(@RequestParam int userIdx) {
         try{
-            GetIncidentNoteRes getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
+            List<GetIncidentNoteRes> getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
