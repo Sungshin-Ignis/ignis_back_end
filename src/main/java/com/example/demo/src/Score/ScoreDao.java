@@ -26,17 +26,26 @@ public class ScoreDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // total 조회
     public GetScoreRes selectScore(int userIdx) {
-        String checkResultExistQuery = "select sum(favorableEvidenceSC+hintSC+lawSC+impeachmentSC+questionSC) from Score where userIdx = ?";
+        String checkResultExistQuery = "select userIdx, sum(favorableEvidenceSC+hintSC+lawSC+impeachmentSC+questionSC) as total from theJudgement_db.Score where userIdx = ?;";
         int checkScoreExistParams = userIdx;
         return this.jdbcTemplate.queryForObject(checkResultExistQuery,
                 (rs,rowNum) -> new GetScoreRes(
                         rs.getInt("userIdx"),
-                        rs.getInt("total")
-                ),
+                        rs.getInt("total")),
                 checkScoreExistParams);
     }
 
+    public int checkUserExist(int userIdx){
+        String checkUserExistQuery = "select exists(select userIdx from theJudgement_db.User where userIdx = ?)";
+        int checkUserExistParams = userIdx;
+        return this.jdbcTemplate.queryForObject(checkUserExistQuery,
+                int.class,
+                checkUserExistParams);
+    }
+
+    // 점수 증가
     public int updateFavorableEvidenceSC(int userIdx, int favorableEvidenceSC) {
         String updateFavorableEvidenceSCExistQuery = "update theJudgement_db.Score set favorableEvidenceSC = ? where userIdx = ?";
         Object []updateFavorableEvidenceSCParams = new Object[] {favorableEvidenceSC, userIdx};

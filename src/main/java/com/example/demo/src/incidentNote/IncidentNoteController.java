@@ -50,6 +50,10 @@ public class IncidentNoteController {
     @GetMapping("") // (GET) 127.0.0.1:9000/IncidentNote?userIdx=
     public BaseResponse<GetIncidentNoteRes> getUsers(@RequestParam int userIdx) {
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             GetIncidentNoteRes getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
         } catch(BaseException exception){
@@ -70,6 +74,10 @@ public class IncidentNoteController {
             return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(postIncidentNoteReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             PostIncidentNoteRes postIncidentNoteRes = incidentNoteService.createIncidentNote(postIncidentNoteReq.getUserIdx(), postIncidentNoteReq);
             return new BaseResponse<>(postIncidentNoteRes);
         } catch(BaseException exception){
@@ -78,7 +86,7 @@ public class IncidentNoteController {
     }
     /**
      * 재판 대사 API
-     * [GET] /incidentNote/trial?userIdx=
+     * [GET] /IncidentNote/trial?userIdx=
      *
      * @return BaseResponse<GetIncidentNoteTrialRes>
      */
@@ -87,6 +95,10 @@ public class IncidentNoteController {
     @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=
     public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx) {
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             GetIncidentNoteTrialRes getIncidentNoteTrialRes = incidentNoteProvider.getTrialLines(userIdx);
             return new BaseResponse<>(getIncidentNoteTrialRes);
         } catch(BaseException exception){
@@ -104,6 +116,10 @@ public class IncidentNoteController {
     @PatchMapping("/getHint") // (PATCH) 127.0.0.1:9000/incidentNote/getHint
     public BaseResponse<String> getHint(@RequestBody PatchGetHintReq patchGetHintReq) {
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchGetHintReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             incidentNoteService.getHint(patchGetHintReq.getUserIdx(), patchGetHintReq);
             String result="힌트를 얻었습니다.";
             return new BaseResponse<>(result);

@@ -34,10 +34,14 @@ public class ScoreController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("/result") // (GET) 127.0.0.1:9000/score/result?userIdx=
-    public BaseResponse<GetScoreRes> getScoreTotal(@RequestParam int userIdx) {
+    @GetMapping("/result/{userIdx}") // (GET) 127.0.0.1:9000/score/result/:userIdx
+    public BaseResponse<GetScoreRes> getScoreTotal(@PathVariable("userIdx") int userIdx) {
         try{
-            GetScoreRes getScoreRes = scoreProvider.getScoreByTotal(userIdx);
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+            GetScoreRes getScoreRes = scoreProvider.getTotalByIdx(userIdx);
             return new BaseResponse<>(getScoreRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -56,6 +60,10 @@ public class ScoreController {
             return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchFavorableEvidenceSCReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             scoreService.addFavorableEvidenceSC(patchFavorableEvidenceSCReq.getUserIdx(), patchFavorableEvidenceSCReq);
             String result="favorableEvidenceSC 점수가 증가하였습니다";
             return new BaseResponse<>(result);
@@ -76,6 +84,10 @@ public class ScoreController {
             return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchHintSCReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             scoreService.addHintSC(patchHintSCReq.getUserIdx(), patchHintSCReq);
             String result="hintSC 점수가 증가하였습니다";
             return new BaseResponse<>(result);
@@ -97,6 +109,10 @@ public class ScoreController {
             return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchLawSCReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             scoreService.addLawSC(patchLawSCReq.getUserIdx(), patchLawSCReq);
             String result="lawSC 점수가 증가하였습니다";
             return new BaseResponse<>(result);
@@ -118,6 +134,10 @@ public class ScoreController {
             return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchImpeachmentSCReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             scoreService.addImpeachmentSC(patchImpeachmentSCReq.getUserIdx(), patchImpeachmentSCReq);
             String result="impeachmentSC 점수가 증가하였습니다";
             return new BaseResponse<>(result);
@@ -139,6 +159,10 @@ public class ScoreController {
             return new BaseResponse<>(BaseResponseStatus.PACTH_SCORE_INVALID_SCORE);
         }
         try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(patchQuestionSCReq.getUserIdx() != userIdxByJwt){
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
             scoreService.addQuestionSC(patchQuestionSCReq.getUserIdx(), patchQuestionSCReq);
             String result="questionSC 점수가 증가하였습니다";
             return new BaseResponse<>(result);
@@ -146,9 +170,4 @@ public class ScoreController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-/*
-    int userIdxByJwt = jwtService.getUserIdx();
-    if(post--Req.getUserIdx()!=userIdxByJwt){
-        return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT)
-    }*/
 }

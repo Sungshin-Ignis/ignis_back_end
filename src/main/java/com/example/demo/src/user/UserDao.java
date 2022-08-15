@@ -20,6 +20,7 @@ public class UserDao {
     }
 
 
+    // 유저 조회
     public GetUserRes getUsersByIdx(int userIdx){
         String getUsersByIdxQuery = "select userIdx,name,isLawyer from User where userIdx=?";
         int getUsersByIdxParams = userIdx;

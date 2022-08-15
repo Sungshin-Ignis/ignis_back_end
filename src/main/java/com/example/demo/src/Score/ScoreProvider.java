@@ -32,7 +32,10 @@ public class ScoreProvider {
         this.jwtService = jwtService;
     }
 
-    public GetScoreRes getScoreByTotal(int userIdx) throws BaseException{
+    public GetScoreRes getTotalByIdx(int userIdx) throws BaseException{
+        if (checkUserExist(userIdx)==0) {
+            throw new BaseException(USERS_EMPTY_USER_ID);
+        }
         try {
             GetScoreRes getScoreRes = scoreDao.selectScore(userIdx);
             return  getScoreRes;
@@ -42,4 +45,11 @@ public class ScoreProvider {
         }
     }
 
+    private int checkUserExist(int userIdx) throws BaseException {
+        try{
+            return scoreDao.checkUserExist(userIdx);
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

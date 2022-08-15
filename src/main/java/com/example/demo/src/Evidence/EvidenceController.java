@@ -38,13 +38,13 @@ public class EvidenceController {
 
     /**
      * 힌트 여부 조회 API
-     * [GET] /evidence/hasHint?evidenceIdx=
+     * [GET] /evidence/hasHint/:evidenceIdx
      * @return BaseResponse<GetUserRes>
      */
     //Query String
     @ResponseBody
-    @GetMapping("/hasHint") // (GET) 127.0.0.1:9000/evidence/hasHint?evidenceIdx=
-    public BaseResponse<GetEvidenceRes> getEvidence(@RequestParam int evidenceIdx) {
+    @GetMapping("/hasHint/{evidenceIdx}") // (GET) 127.0.0.1:9000/evidence/hasHint/:evidenceIdx
+    public BaseResponse<GetEvidenceRes> getEvidence(@PathVariable("evidenceIdx") int evidenceIdx) {
         try{
             GetEvidenceRes getEvidenceRes = evidenceProvider.getHasHintByEvidenceIdx(evidenceIdx);
             return new BaseResponse<>(getEvidenceRes);
