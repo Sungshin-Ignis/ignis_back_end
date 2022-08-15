@@ -4,6 +4,7 @@ package com.example.demo.src.incidentNote;
 import com.example.demo.src.Hint.model.GetHintRes;
 import com.example.demo.src.incidentNote.model.GetIncidentNoteRes;
 import com.example.demo.src.incidentNote.model.GetIncidentNoteTrialRes;
+import com.example.demo.src.incidentNote.model.PutPickEvidenceReq;
 import com.example.demo.src.user.model.PatchUserReq;
 import com.example.demo.src.user.model.PostUserReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,25 @@ public class IncidentNoteDao {
 
         String lastInsertIdxQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
+
+
+    public int putPickEvidence(int userIdx) {
+        String putPickEvidenceQuery = "DELETE FROM theJudgement_db.IncidentNote WHERE userIdx = ?";
+        int putPickEvidenceParams = userIdx;
+        this.jdbcTemplate.update(putPickEvidenceQuery, putPickEvidenceParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+    }
+
+    public int pickEvidence(int userIdx,  Integer evidenceIdx) {
+        String pickEvidenceQuery = "INSERT INTO theJudgement_db.IncidentNote(userIdx, evidenceIdx) VALUES (?,?)";
+        Object []pickEvidenceParams = new Object[] {userIdx, evidenceIdx};
+        this.jdbcTemplate.update(pickEvidenceQuery, pickEvidenceParams);
+
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery, int.class);
+
     }
 }
