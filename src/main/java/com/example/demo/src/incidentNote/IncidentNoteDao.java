@@ -40,13 +40,13 @@ public class IncidentNoteDao {
     }
 
 
-    public GetIncidentNoteRes selectIncidentNote(int userIdx){
-        String checkUserExistQuery = "select Evidence.evidenceIdx, evidenceName, evidenceImgUrl\n" +
-                "from Evidence,IncidentNote\n" +
+    public List<GetIncidentNoteRes> selectIncidentNote(int userIdx){
+        String checkUserExistQuery = "select IncidentNote.evidenceIdx, evidenceImgUrl, evidenceName\n" +
+                "from theJudgement_db.Evidence,theJudgement_db.IncidentNote\n" +
                 "where Evidence.evidenceIdx = IncidentNote.evidenceIdx and IncidentNote.userIdx = ?\n" +
                 "order by Evidence.evidenceIdx;";
         int checkUserExistParams = userIdx;
-        return this.jdbcTemplate.queryForObject(checkUserExistQuery,
+        return this.jdbcTemplate.query(checkUserExistQuery,
                 (rs,rowNum) -> new GetIncidentNoteRes(
                         rs.getInt("evidenceIdx"),
                         rs.getString("evidenceName"),
