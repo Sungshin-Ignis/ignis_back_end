@@ -43,11 +43,16 @@ public class UserDao {
     }
 
     // 유저 추가 시 사건노트 기본값, score 행 삽입
-    public void insertUser(int userIdx){
-        String createUserQuery = "insert into Score(userIdx) values(?);\n" +
-                "insert into IncidentNote(userIdx, evidenceIdx) values(?,10);";
-        Object[] createUserParams = new Object[]{userIdx,userIdx};
-        this.jdbcTemplate.update(createUserQuery, createUserParams);
+    public void insertScore(int userIdx){
+        String createUserQuery = "insert into theJudgement_db.Score(userIdx) values(?);";
+        int createUserParam = userIdx;
+        this.jdbcTemplate.update(createUserQuery, createUserParam);
+    }
+
+    public void insertIncidentNote(int userIdx){
+        String createUserQuery = "insert into theJudgement_db.IncidentNote(userIdx, evidenceIdx) values(?,10);";
+        int createUserParam = userIdx;
+        this.jdbcTemplate.update(createUserQuery, createUserParam);
     }
 
     // 이메일 중복확인 쿼리
