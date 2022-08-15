@@ -125,7 +125,7 @@ public class IncidentNoteController {
                 return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
             }
             incidentNoteService.getHint(patchGetHintReq.getUserIdx(), patchGetHintReq);
-            String result="힌트를 얻었습니다.";
+            String result="getHint 힌트를 저장했습니다.";
             return new BaseResponse<>(result);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
