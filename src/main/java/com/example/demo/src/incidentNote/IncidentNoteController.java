@@ -93,7 +93,7 @@ public class IncidentNoteController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=
+    @GetMapping("/trial") // (GET) 127.0.0.1:9000/incidentNote/trial?userIdx=&evidenceIdx=
     public BaseResponse<GetIncidentNoteTrialRes> getTrialLines(@RequestParam int userIdx, @RequestParam int evidenceIdx) {
         if (evidenceIdx >= 12 || evidenceIdx < 0) {
             return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
@@ -141,11 +141,6 @@ public class IncidentNoteController {
     @ResponseBody
     @PutMapping("/evidence") // (POST) 127.0.0.1:9000/incidentNote/evidence?userIdx=
     public BaseResponse<PutPickEvidenceRes> PickEvidence(@RequestBody PutPickEvidenceReq putPickEvidenceReq) {
-        /*
-        if (putPickEvidenceReq.getEvidenceIdx()> 12 && putPickEvidenceReq.getEvidenceIdx() < 0) {
-            return new BaseResponse<>(BaseResponseStatus.POST_INCIDENTNOTE_NONEXISTS_EVIDENCE);
-        }
-         */
         try{
             int userIdxByJwt = jwtService.getUserIdx();
             if(putPickEvidenceReq.getUserIdx() != userIdxByJwt){

@@ -61,13 +61,18 @@ public class IncidentNoteDao {
     }
 
     public GetIncidentNoteTrialRes selectTrialLines(int userIdx, int evidenceIdx) {
-        String selectTrialLinesQuery = "select evidenceIdx, evidenceName, lines" +
-                "from theJudgement_db.IncidentNote where userIdx = ? and evidenceIdx = ?";
-        Object []selectTrialLinesParams = new Object[] {userIdx, evidenceIdx};
+        String selectTrialLinesQuery = "select\n" +
+                "\tcase IncidentNote.getHint\n" +
+                "\t\t\twhen 1\n" +
+                "            then (select (if((select User.isLawyer from theJudgement_db.User where User.userIdx = ?)= 1,Hint.lawyerHintLines,Hint.attorneyHintLines)) from theJudgement_db.Hint where evidenceIdx =?)\n" +
+                "            when 0\n" +
+                "            then (select (if((select User.isLawyer from theJudgement_db.User where User.userIdx = ?)= 1,Evidence.lawyerLines,Evidence.attorneyLines)) from theJudgement_db.Evidence where evidenceIdx = ?)\n" +
+                "\t\tEND AS \"lines\"\n" +
+                "from theJudgement_db.IncidentNote\n" +
+                "order by IncidentNote.evidenceIdx asc limit 1;";
+        Object []selectTrialLinesParams = new Object[] {userIdx, evidenceIdx,userIdx, evidenceIdx};
         return this.jdbcTemplate.queryForObject(selectTrialLinesQuery,
                 (rs,rowNum) -> new GetIncidentNoteTrialRes(
-                        rs.getInt("evidenceIdx"),
-                        rs.getString("evidenceName"),
                         rs.getString("lines")
                 ),
                 selectTrialLinesParams);

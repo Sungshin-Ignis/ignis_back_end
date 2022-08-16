@@ -9,7 +9,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetIncidentNoteTrialRes {
-    private int evidenceIdx;
-    private String evidenceName;
     private String lines;
 }
