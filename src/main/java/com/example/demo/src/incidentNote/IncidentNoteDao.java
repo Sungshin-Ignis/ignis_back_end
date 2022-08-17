@@ -27,7 +27,7 @@ public class IncidentNoteDao {
 
 
     public List<GetIncidentNoteRes> selectIncidentNote(int userIdx){
-        String checkUserExistQuery = "select IncidentNote.evidenceIdx, evidenceImgUrl, evidenceName\n" +
+        String checkUserExistQuery = "select IncidentNote.evidenceIdx, evidenceName, evidenceImgUrl \n" +
                 "from theJudgement_db.Evidence,theJudgement_db.IncidentNote\n" +
                 "where Evidence.evidenceIdx = IncidentNote.evidenceIdx and IncidentNote.userIdx = ?\n" +
                 "order by Evidence.evidenceIdx;";

@@ -55,7 +55,7 @@ public class IncidentNoteController {
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
             }
-            List<GetIncidentNoteRes> getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdx, userIdx);
+            List<GetIncidentNoteRes> getIncidentNoteRes = incidentNoteProvider.getIncidentNoteByIdx(userIdxByJwt, userIdx);
             return new BaseResponse<>(getIncidentNoteRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
